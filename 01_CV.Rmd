@@ -1,0 +1,95 @@
+
+
+# Thijmen Weijgertze DataScience CV
+
+```{r setup3, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE, 
+  warning = FALSE, 
+  message = FALSE)
+```
+
+### About me
+
+Hi I'm "Thijmen Weijgertze" a 20 year old student from Ede, Gelderland (2003). I tend to be very passionate about my study and love to talk about topics surrounding Life Sciences. As of writing this résumé I live with my parents, sister and our dog "Saartje" (breed: markiesje). In my free time my biggest hobby is music. I produce music from time to time and play piano almost daily. Besides music I also like to spent time with friends in the weekends and cycle so now and then. 
+
+### My education
+
+```{r, collapse=TRUE}
+library(reactable)
+library(tibble)
+tibble(Degree=c("Havo (N&T and N&G)","Life Science"), 
+       Year=c("2020", "3rd year"), 
+       Institution=c("Marnix College", "HU University of Applied Sciences Utrecht"),
+       Where=c("Ede, Gelderland", "Utrecht, Utrecht")) %>% reactable()
+```
+
+### My most relevant skills related to DataScience (alphabetical order)
+
+  - **[Assembly tools]**
+  
+      I've worked with the assembly tools Unicycler, PlasmidEC and Gplas. These tools I've used within a project where we (our project group) assembled plasmids from bacterial illumina NGS data. This project was commissioned by the RIVM.
+  
+  - **Bash**
+      
+      I'm capable of writing in Bash
+      
+  - **Cell biology**
+  
+      I've theoretical knowledge about the principles of the cell such as cell metabolism and cellular communication
+      
+  - **[Cell culture]**
+  
+      I'm capable of working and running experiments with cell cultures
+      
+  - [Git/Github]
+  
+      I've worked with git/github workflows
+      
+  - [Immunology]
+  
+      I've theoretical knowledge about the principles regarding immunology
+      
+  - [Metagenomics]
+      
+      I'm capable of writing a pipeline for downstream metagenomics data
+      
+  - [NGS]
+  
+      I've theoretical knowledge about the NGS principles of Pac-bio, Illumina and Nanopore
+      
+  - [Oncology]
+      
+      I've theoretical knowledge about the hallmarks of tumorcells
+      
+  - [PCR] 
+  
+      I'm experienced with PCR both practicly and theoreticly
+      
+  - [Reproducibility]
+  
+      I'm experienced regarding reproducible research
+      
+  - [R]
+  
+      I'm capable of writing in R and experienced with rmarkdown. See my DataScience portofolio
+      
+  - [RNA/DNA isolation]
+  
+      I'm capable of isolating RNA/DNA (including creating a cDNA bank)
+      
+  - [RNA-seq]
+      
+      I'm capable of writing a pipeline for downstream rna-seq analysis using DESeq2 (with results such as heatmaps, count plots, volcano plots, up/downregulated genes
+      
+  - [Statistics] 
+  
+      I'm capable of parametric and non-parametric tests and writing a conclusion based on the results
+
+### Contact info
+
+- phone:&emsp;0630477492
+- www:&emsp;https://thijmenweijgertze.github.io
+- email:&emsp;thijmen.lifesciences@gmail.com
+- github:&emsp;https://github.com/ThijmenWeijgertze
+- linkedin:&emsp;https://www.linkedin.com/in/thijmen-weijgertze-968a5a265/

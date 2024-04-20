@@ -1,0 +1,11 @@
+main-page
+introduction
+contact-information
+metadata
+source-code
+dependency-packages
+thijmen-weijgertze-datascience-cv
+about-me
+my-education
+my-most-relevant-skills-related-to-datascience-alphabetical-order
+contact-info

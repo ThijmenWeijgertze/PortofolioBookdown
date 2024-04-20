@@ -1,0 +1,16 @@
+# MetaData
+
+## Source code
+
+Bookdown source code: [PortofolioBookdown](https://github.com/ThijmenWeijgertze/PortofolioBookdown)
+
+Website source code: [ThijmenWeijgertze-portofolio](https://github.com/ThijmenWeijgertze/PortofolioBookdown)
+
+Website link: [thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/](https://thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/)
+
+## Dependency packages
+
+-   tidyverse
+-   tidymodels
+-   bookdown
+-   reactable

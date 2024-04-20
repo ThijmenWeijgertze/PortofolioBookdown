@@ -1,17 +1,37 @@
 ---
-title: "A Book"
-author: "Frida Gomam"
+title: "DataScience Portofolio"
+author: "Thijmen Weijgertze"
 site: bookdown::bookdown_site
 documentclass: book
-output:
-  bookdown::gitbook: default
-  #bookdown::pdf_book: default
+data: "2024"
+output: 
+    bookdown::gitbook:
+        css: style.css
+        number_sections: true
+        anchor_sections: false
+        split_by: chapter
+        config:
+            sharing:
+                 github: yes
+                 facebook: no
+                 twitter: no
+            toc:
+                collapse: section
+                scroll_highlight: yes
+                before: <li class="toc"><h2>Table of Contents</h2></li>
+                toc_depth: 3
+github-repo: "https://github.com/ThijmenWeijgertze/ThijmenWeijgertze-portfolio.git"
+description: 'Data Science portofolio for the "Data Science For Biology" course given by the "HU University of Applied Sciences Utrecht"'
 ---
 
-# Hello World
+# Main page
 
-Hi.
+### Introduction
 
-Bye.
+<p class="justify">This github page is written by Thijmen Weijgertze using Rstudio. I am a 3rd year Life Science student at HU University of Applied Sciences Utrecht. In the past half year I've followed a DataScience minor provided by the HU. This Github page serves as my DataScience portofolio for showing off my DataScience skills. The course is created by @amdhaanTlscdsfb26v20Workflows2021 based on the "bookdown: Authoring Books and Technical Documents with R Markdown" book from @xieBookdownAuthoringBooks.</p>
 
-<!-- If you need PDF output, uncomment bookdown::pdf_book above in YAML. You will need a LaTeX installation, e.g., https://yihui.name/tinytex/ -->
+### Contact information
+
+- [E-mail](thijmen.lifesciences@gmail.com)
+- [GitHub](https://github.com/ThijmenWeijgertze)
+- [LinkedIn](https://www.linkedin.com/in/thijmen-weijgertze-968a5a265/)
