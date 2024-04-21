@@ -26,11 +26,11 @@ description: 'Data Science portofolio for the "Data Science For Biology" course 
 
 # Main page
 
-### Introduction
+### Introduction {-}
 
 <p class="justify">This github page is written by Thijmen Weijgertze using Rstudio. I am a 3rd year Life Science student at HU University of Applied Sciences Utrecht. In the past half year I've followed a DataScience minor provided by the HU. This Github page serves as my DataScience portofolio for showing off my DataScience skills. The course is created by @amdhaanTlscdsfb26v20Workflows2021 based on the "bookdown: Authoring Books and Technical Documents with R Markdown" book from @xieBookdownAuthoringBooks.</p>
 
-### Contact information
+### Contact information {-}
 
 - [E-mail](thijmen.lifesciences@gmail.com)
 - [GitHub](https://github.com/ThijmenWeijgertze)

@@ -1,8 +1,8 @@
 # C. Elegans plate experiment
 
-### Setup
+### Setup {-}
 
-##### {-} Setting a seed and loading packages
+##### Setting a seed and loading packages {-}
 
 ```{r setting seed}
 # Seed chosen based on the current year
@@ -18,7 +18,7 @@ library(here)
 library(reactable)
 ```
 
-##### {-} Importing and inspecting the data
+##### Importing and inspecting the data {-}
 
 <p class="justify">According to The data was kindly supplied by J. Louter (INT/ILC) and was derived from an experiment in which adult C.elegans nematodes were exposed to varying concentrations of different compounds.</p>
 
@@ -35,9 +35,9 @@ CE_LIQ_FLOW_062_Tidydata <- read_excel(
 reactable(CE_LIQ_FLOW_062_Tidydata, defaultPageSize = 5)
 ```
 
-### Scatterplot
+### Scatterplot {-}
 
-##### {-} Pseudocode
+##### Pseudocode {-}
 
 -   Deciding which columns will be included in the scatterplot
 -   Checking and possibly changing the datatypes of those columns
@@ -46,7 +46,7 @@ reactable(CE_LIQ_FLOW_062_Tidydata, defaultPageSize = 5)
 -   Setting the x-axis to a log10 scale
 -   Adding jitter to spread out points on top of eachother
 
-##### {-} Checking and correcting datatypes needed for the scatterplot
+##### Checking and correcting datatypes needed for the scatterplot {-}
 
 ```{r checking and correcting datatypes}
 # Checking the data types of the following columns: RawData, compName, expType and compConcentration
@@ -63,7 +63,7 @@ levels(CE_LIQ_FLOW_062_Tidydata$compName)
 levels(CE_LIQ_FLOW_062_Tidydata$expType)
 ```
 
-### normalizing data
+### normalizing data {-}
 
 ```{r normalizing}
 CE_LIQ_FLOW_062_contNeg <- CE_LIQ_FLOW_062_Tidydata %>% filter(expType == "controlNegative")
@@ -84,7 +84,7 @@ contNegNorm_mean
 # https://www.statology.org/how-to-normalize-data-in-r/
 ```
 
-##### {-} Plotting the CE_LIQ_FLOW_062_normalized in a scatterplot
+##### Plotting the CE_LIQ_FLOW_062_normalized in a scatterplot {-}
 
 ```{r scatterplot, fig.cap="The positive control for this experiments is controlPositive\nThe negative control for this experiment is controlNegative"}
 # Plotting the CE_LIQ_FLOW_062_normalized in a scatterplot
@@ -107,9 +107,9 @@ ggplot(
   scale_color_brewer(palette = "Dark2") # colorblind friendly color scale
 ```
 
-### Statistical tests
+### Statistical tests {-}
 
-##### {-} Pseudocode
+##### Pseudocode {-}
 
 Difference between the compound concentrations
 

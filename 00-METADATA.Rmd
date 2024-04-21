@@ -1,6 +1,6 @@
 # MetaData
 
-## Source code
+### Source code {-}
 
 Bookdown source code: [PortofolioBookdown](https://github.com/ThijmenWeijgertze/PortofolioBookdown)
 
@@ -8,7 +8,7 @@ Website source code: [ThijmenWeijgertze-portofolio](https://github.com/ThijmenWe
 
 Website link: [thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/](https://thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/)
 
-## Dependency packages
+### Dependency packages {-}
 
 -   tidyverse
 -   tidymodels

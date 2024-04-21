@@ -1,7 +1,14 @@
 # Guerrilla Analytics
 
+### Example Project {-}
+
 <img src="data/GuerrillaAnalytics.png" class="img-responsive" alt=""> </div>
 
-```{r GuerrillaAnalytics load}
+### Root Of This Bookdown Project {-}
 
+```{r GuerrillaAnalytics load}
+library(fs)
+library(tidyverse)
+
+dir_tree(".", recurse = TRUE, regexp = "^.gitignore$|^[^_|(.git)]", all = TRUE)
 ```
