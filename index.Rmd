@@ -20,7 +20,7 @@ output:
                 scroll_highlight: yes
                 before: <li class="toc"><h2>Table of Contents</h2></li>
                 toc_depth: 3
-github-repo: "https://github.com/ThijmenWeijgertze/ThijmenWeijgertze-portfolio.git"
+github-repo: "ThijmenWeijgertze/ThijmenWeijgertze-portfolio"
 description: 'Data Science portofolio for the "Data Science For Biology" course given by the "HU University of Applied Sciences Utrecht"'
 ---
 

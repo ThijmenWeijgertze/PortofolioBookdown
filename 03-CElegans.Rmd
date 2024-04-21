@@ -1,0 +1,134 @@
+# C. Elegans plate experiment
+
+### Setup
+
+##### Setting a seed and loading packages
+
+```{r setting seed}
+# Seed chosen based on the current year
+set.seed(2023)
+```
+
+```{r packages, message=FALSE, warning=FALSE}
+# Loading packages
+library(tidyverse)
+library(RColorBrewer)
+library(readxl)
+library(here)
+library(reactable)
+```
+
+##### Importing and inspecting the data
+
+<p class="justify">According to The data was kindly supplied by J. Louter (INT/ILC) and was derived from an experiment in which adult C.elegans nematodes were exposed to varying concentrations of different compounds.</p>
+
+```{r importing and inspecting the data}
+# importing xlsx file
+CE_LIQ_FLOW_062_Tidydata <- read_excel(
+  here::here(
+    "data",
+    "CE-LIQ-FLOW-062_Tidydata.xlsx"
+  )
+)
+
+# inspecting data in table format with the reactable package
+reactable(CE_LIQ_FLOW_062_Tidydata, defaultPageSize = 5)
+```
+
+### Scatterplot
+
+##### Pseudocode
+
+-   Deciding which columns will be included in the scatterplot
+-   Checking and possibly changing the datatypes of those columns
+-   Plotting the data in a scatterplot using ggplot
+-   Normalizing y-axis counts
+-   Setting the x-axis to a log10 scale
+-   Adding jitter to spread out points on top of eachother
+
+##### Checking and correcting datatypes needed for the scatterplot
+
+```{r checking and correcting datatypes}
+# Checking the data types of the following columns: RawData, compName, expType and compConcentration
+CE_LIQ_FLOW_062_Tidydata %>% select(RawData, compName, compConcentration, expType) %>% str()
+
+# Changing compConcentration to numeric; changing compName into a factor; changing expType into a factor
+CE_LIQ_FLOW_062_Tidydata$compConcentration <- parse_number(CE_LIQ_FLOW_062_Tidydata$compConcentration)
+CE_LIQ_FLOW_062_Tidydata$compName <- factor(CE_LIQ_FLOW_062_Tidydata$compName, levels = unique(CE_LIQ_FLOW_062_Tidydata$compName))
+CE_LIQ_FLOW_062_Tidydata$expType <- factor(CE_LIQ_FLOW_062_Tidydata$expType, levels = unique(CE_LIQ_FLOW_062_Tidydata$expType))
+
+# Checking the new dataypes and factor levels
+CE_LIQ_FLOW_062_Tidydata %>% select(RawData, compName, compConcentration, expType) %>% str()
+levels(CE_LIQ_FLOW_062_Tidydata$compName)
+levels(CE_LIQ_FLOW_062_Tidydata$expType)
+```
+
+### normalizing data
+
+```{r normalizing}
+CE_LIQ_FLOW_062_contNeg <- CE_LIQ_FLOW_062_Tidydata %>% filter(expType == "controlNegative")
+contNeg_mean <- mean(CE_LIQ_FLOW_062_contNeg$RawData)
+contNeg_mean
+
+CE_LIQ_FLOW_062_Tidydata <- CE_LIQ_FLOW_062_Tidydata %>% mutate(normalized = RawData/mean(contNeg_mean))
+mean(CE_LIQ_FLOW_062_Tidydata$RawData)
+
+CE_LIQ_FLOW_062_Tidydata %>% 
+  select(compName, expType, compConcentration, RawData, normalized) %>% 
+  reactable(defaultPageSize = 5)
+
+CE_LIQ_FLOW_062_contNeg <- CE_LIQ_FLOW_062_Tidydata %>% filter(expType == "controlNegative")
+contNegNorm_mean <- mean(CE_LIQ_FLOW_062_contNeg$normalized)
+contNegNorm_mean
+
+# https://www.statology.org/how-to-normalize-data-in-r/
+```
+
+##### Plotting the CE_LIQ_FLOW_062_normalized in a scatterplot
+
+```{r scatterplot, fig.cap="The positive control for this experiments is controlPositive\nThe negative control for this experiment is controlNegative"}
+# Plotting the CE_LIQ_FLOW_062_normalized in a scatterplot
+ggplot(
+    data = CE_LIQ_FLOW_062_Tidydata, 
+    aes(x = log10(compConcentration), y = normalized)
+    )+
+  geom_point(
+    aes(color = compName, shape = expType),
+    size = 1.5, 
+    alpha = 0.8,
+    position = position_jitter(width = 0.1) # jitter to spread out values on top of eachother
+    )+
+  labs(
+    title = "Scatterplot CE_LIQ_FLOW_062_Tidydata",
+    caption = "Data normalized with the negative control mean",
+    x = "log10(compConcentration) in nM",
+    y = "RawData in counts"
+  )+
+  scale_color_brewer(palette = "Dark2") # colorblind friendly color scale
+```
+
+### Statistical tests
+
+##### Pseudocode
+
+Difference between the compound concentrations
+
+-   Loading the data
+-   Filter the concentrations per compound
+-   Plot the data using bargraph with the stdev as error bar
+-   Check the normality with a Shapio-Wilk test of both groups separately
+-   Perform an ANOVA test
+-   If the ANOVA test is significant, perform post hoc tests
+-   Draw a conclusion
+
+Difference between the LC50 curves
+
+-   Loading the data
+-   Filter the concentrations per compound
+-   Plotting the LC50 curves per compound
+-   Calculating 95% confidence intervals
+-   Checking the overlap between the 95% confidence intervals
+-   Draw conclusion
+
+
+

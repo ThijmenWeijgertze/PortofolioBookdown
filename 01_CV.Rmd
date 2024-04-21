@@ -2,7 +2,7 @@
 
 # Thijmen Weijgertze DataScience CV
 
-```{r setup3, include=FALSE}
+```{r setup cv, include=FALSE}
 knitr::opts_chunk$set(
   echo = FALSE, 
   warning = FALSE, 
@@ -26,7 +26,7 @@ tibble(Degree=c("Havo (N&T and N&G)","Life Science"),
 
 ### My most relevant skills related to DataScience (alphabetical order)
 
-  - **[Assembly tools]**
+  - **Assembly tools**
   
       I've worked with the assembly tools Unicycler, PlasmidEC and Gplas. These tools I've used within a project where we (our project group) assembled plasmids from bacterial illumina NGS data. This project was commissioned by the RIVM.
   
@@ -38,51 +38,51 @@ tibble(Degree=c("Havo (N&T and N&G)","Life Science"),
   
       I've theoretical knowledge about the principles of the cell such as cell metabolism and cellular communication
       
-  - **[Cell culture]**
+  - **Cell culture**
   
       I'm capable of working and running experiments with cell cultures
       
-  - [Git/Github]
+  - **Git/Github**
   
       I've worked with git/github workflows
       
-  - [Immunology]
+  - **Immunology**
   
       I've theoretical knowledge about the principles regarding immunology
       
-  - [Metagenomics]
+  - **Metagenomics**
       
       I'm capable of writing a pipeline for downstream metagenomics data
       
-  - [NGS]
+  - **NGS**
   
       I've theoretical knowledge about the NGS principles of Pac-bio, Illumina and Nanopore
       
-  - [Oncology]
+  - **Oncology**
       
       I've theoretical knowledge about the hallmarks of tumorcells
       
-  - [PCR] 
+  - **PCR** 
   
       I'm experienced with PCR both practicly and theoreticly
       
-  - [Reproducibility]
+  - **Reproducibility**
   
       I'm experienced regarding reproducible research
       
-  - [R]
+  - **R**
   
       I'm capable of writing in R and experienced with rmarkdown. See my DataScience portofolio
       
-  - [RNA/DNA isolation]
+  - **RNA/DNA isolation**
   
       I'm capable of isolating RNA/DNA (including creating a cDNA bank)
       
-  - [RNA-seq]
+  - **RNA-seq**
       
       I'm capable of writing a pipeline for downstream rna-seq analysis using DESeq2 (with results such as heatmaps, count plots, volcano plots, up/downregulated genes
       
-  - [Statistics] 
+  - **Statistics** 
   
       I'm capable of parametric and non-parametric tests and writing a conclusion based on the results
 

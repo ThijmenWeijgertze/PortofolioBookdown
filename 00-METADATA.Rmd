@@ -14,3 +14,7 @@ Website link: [thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/](https:/
 -   tidymodels
 -   bookdown
 -   reactable
+-   fs
+-   tidyverse
+-   RColorBrewer
+-   readxl
