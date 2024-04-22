@@ -1,5 +1,6 @@
+# specify website directory
 
-specify your website folder:
+Website folder:
 
 ```{r}
 ### specify the folder from where you host the website
@@ -7,6 +8,8 @@ websiteFolder <- "../ThijmenWeijgertze-portfolio/"
 ```
 
 # Upload site
+
+upload site:
 
 ```{r}
 
