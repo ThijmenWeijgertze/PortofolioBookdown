@@ -18,3 +18,22 @@ Website link: [thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/](https:/
 -   tidyverse
 -   RColorBrewer
 -   readxl
+
+### Directory roadmap
+
+The structure of this portfolio's source code is as follows:
+
+```{r directory roadmap, warning=FALSE, message=FALSE}
+library(fs)
+library(tidyverse)
+
+dir_tree(".", recurse = TRUE, regexp = "^.gitignore$|^[^_|(.git)]", all = TRUE)
+```
+
+### dataRaw & data folder
+
+The dataRaw folder holds the original data files. These data files are unedited and remain in untouched in the folder as back-up. The data within the data folder are used within the Rmarkdown files and may differ from the original source in dataRaw. 
+
+The data folder consists of the following files:
+- CE-LIQ-FLOW-062_Tidydata.xlsx: C.elegans data used in the C.elegans plate analysis
+- GuerrillaAnalytics.png: a screenshot of a project's directory tree to demonstrate the guerrilla analytics principles 
