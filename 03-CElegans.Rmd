@@ -40,7 +40,7 @@ CE_LIQ_FLOW_062_Tidydata <- read_excel(
 )
 
 # inspecting data in table format with the reactable package
-reactable(CE_LIQ_FLOW_062_Tidydata, defaultPageSize = 5)
+reactable(CE_LIQ_FLOW_062_Tidydata, defaultPageSize = 5, compact = TRUE)
 ```
 
 ### Scatterplot {-}

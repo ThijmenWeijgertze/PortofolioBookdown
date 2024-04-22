@@ -2,7 +2,15 @@
 
 ### Example Project {-}
 
-<img src="data/GuerrillaAnalytics.png" class="img-responsive" alt=""> </div>
+```{r echo=TRUE}
+# Load example image
+library(here)
+
+knitr::include_graphics(here::here(
+  "data",
+  "GuerrillaAnalytics.png"
+))
+```
 
 ### Root Of This Bookdown Project {-}
 

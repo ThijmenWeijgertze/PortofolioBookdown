@@ -21,7 +21,7 @@ output:
                 before: <li class="toc"><h2>Table of Contents</h2></li>
                 toc_depth: 3
 github-repo: "ThijmenWeijgertze/PortofolioBookdown"
-description: 'Data Science portofolio for the "Data Science For Biology" course given by the "HU University of Applied Sciences Utrecht"'
+description: 'Data Science portfolio for the "Data Science For Biology" course given by the "HU University of Applied Sciences Utrecht"'
 ---
 
 # Main page
