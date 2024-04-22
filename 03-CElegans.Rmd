@@ -1,5 +1,13 @@
 # C. Elegans plate experiment
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE
+  )
+```
+
 ### Setup {-}
 
 ##### Setting a seed and loading packages {-}
@@ -9,7 +17,7 @@
 set.seed(2023)
 ```
 
-```{r packages, message=FALSE, warning=FALSE}
+```{r Celegans packages}
 # Loading packages
 library(tidyverse)
 library(RColorBrewer)

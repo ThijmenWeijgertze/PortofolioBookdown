@@ -6,7 +6,7 @@
 
 ### Root Of This Bookdown Project {-}
 
-```{r GuerrillaAnalytics load}
+```{r GuerrillaAnalytics load, echo=TRUE}
 library(fs)
 library(tidyverse)
 
