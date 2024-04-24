@@ -1,3 +1,44 @@
-# Reproducible Research
+# Open Peer Review
 
+<!-- article to review: https://doi.org/10.1101/2024.04.15.589583 -->
+<!-- review criteria: https://doi.org/10.1101/2020.03.24.20042796 -->
 
+### Introduction
+
+The COVID-19 pandemic has highlighted how open science and reproducible research can speed up scientific progress. Open science makes it possible for different research facilities to share their finding with the rest of the world for others to build on. With the rise of open science reproducible research is an important subject. Not only should science publication be available to everyone without any publisher pay wall, but it's also important that publications are reproducible and the conclusions can be verified. In this chapter I'll peer review an article from [bioRxiv](https://www.biorxiv.org/). The article chosen to review is: [Exploring Metabolic Anomalies in COVID-19 and Post-COVID-19: A Machine Learning Approach with Explainable Artificial Intelligence](https://doi.org/10.1101/2024.04.15.589583)
+
+### Criteria
+
+The open peer review will use criteria from the following publication: [Reproducibility and reporting practices in COVID-19 preprint manuscripts](https://doi.org/10.1101/2020.03.24.20042796)
+
+| Transparency Criteria| Definition       | Response Type|
+|---------|-------------------------------|----------|
+|Study Purpose |A concise statement in the introduction of the article, often in the last paragraph, that establishes the reason the research was conducted. Also called the study objective.| Binary| 
+|Data Availability Statement | A statement, in an individual section offset from the main body of text, that explains how or if one can access a study’s data. The title of the section may vary, but it must explicitly mention data; it is therefore distinct from a supplementary materials section.| Binary|
+|Data Location | Where the article’s data can be accessed, either raw or processed.| Found Value|
+|Study Location| Author has stated in the methods section where the study took place or the data’s country/region of origin.| Binary; Found Value|
+|Author Review| The professionalism of the contact information that the author has provided in the manuscript.|Found Value|
+|Ethics Statement | A statement within the manuscript indicating any ethical concerns, including the presence of sensitive data.|Binary|
+|Funding Statement| A statement within the manuscript indicating whether or not the authors received funding for their research.|Binary|
+Code Availability | Authors have shared access to the most updated code that they used in their study, including code used for analysis. |Binary|
+
+### About the article
+
+The research article states in its abstract to have used techniques such as machine learning (ML), explainable artificial intelligence (XAI) and SHapley Additive exPlanations (SHAP) to analyze metabolic alterations in COVID-19 and Post-COVID-19 patients. The publication aims to uncover metabolic signatures and identify potential biomarkers for these conditions. It states to have analyzed 142 COVID-19, 48 Post-COVID-19 samples and 38 CONTROL patients, with 111 identified metabolites. After which the results have been compared to traditional methods such as PCA and PLS-DA. The comparison showed that the combined techniques of ML, XAI and SHAP outperformed the traditional methods and provides different insights in the metabolic basis of the disease’s progression and its aftermath.
+
+### Open Peer Review
+
+| Transparency Criteria| Definition       | Response Type|
+|---------|-------------------------------|----------|
+|Study Purpose |A concise statement in the introduction of the article, often in the last paragraph, that establishes the reason the research was conducted. Also called the study objective.| yes| 
+|Data Availability Statement | A statement, in an individual section offset from the main body of text, that explains how or if one can access a study’s data. The title of the section may vary, but it must explicitly mention data; it is therefore distinct from a supplementary materials section.| yes|
+|Data Location | Where the article’s data can be accessed, either raw or processed.| online|
+|Study Location| Author has stated in the methods section where the study took place or the data’s country/region of origin.| yes; Mendeley database|
+|Author Review| The professionalism of the contact information that the author has provided in the manuscript.|Found Value|
+|Ethics Statement | A statement within the manuscript indicating any ethical concerns, including the presence of sensitive data.|no|
+|Funding Statement| A statement within the manuscript indicating whether or not the authors received funding for their research.|yes|
+Code Availability | Authors have shared access to the most updated code that they used in their study, including code used for analysis. |no|
+
+### Conclusion
+
+The article scores positive in most expects except the code availibity and ethics section. Although the article specified a [github link](https://github.com/resendislab/POST_COVID_Metabolome_MachineLearning) in their publication the link redirects to a 404 error page. This probably indicates that the repository is either set to private, renamed or deleted. The last version of the published pdf at this moment is from April 17th 2024. Looking through the other public repositories it doesn't seem to be renamed as of writing this chapter (2024-04-24). Thereby the article does not pass the open peer review. 
