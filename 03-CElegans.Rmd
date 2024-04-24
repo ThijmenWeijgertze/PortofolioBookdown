@@ -98,20 +98,17 @@ contNegNorm_mean
 # Plotting the CE_LIQ_FLOW_062_normalized in a scatterplot
 ggplot(
     data = CE_LIQ_FLOW_062_Tidydata, 
-    aes(x = log10(compConcentration), y = normalized)
-    )+
+    aes(x = log10(compConcentration), y = normalized))+
   geom_point(
     aes(color = compName, shape = expType),
     size = 1.5, 
     alpha = 0.8,
-    position = position_jitter(width = 0.1) # jitter to spread out values on top of eachother
-    )+
+    position = position_jitter(width = 0.1))+ # jitter to spread out values on top of eachother
   labs(
     title = "Scatterplot CE_LIQ_FLOW_062_Tidydata",
     caption = "Data normalized with the negative control mean",
     x = "log10(compConcentration) in nM",
-    y = "RawData in counts"
-  )+
+    y = "RawData in counts")+
   scale_color_brewer(palette = "Dark2") # colorblind friendly color scale
 ```
 
