@@ -14,7 +14,7 @@ knitr::include_graphics(here::here(
 
 ### Root Of This Bookdown Project {-}
 
-```{r GuerrillaAnalytics load, echo=TRUE}
+```{r GuerrillaAnalytics load, echo=TRUE, warning=FALSE, message=FALSE}
 library(fs)
 library(tidyverse)
 
