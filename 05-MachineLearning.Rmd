@@ -1,0 +1,74 @@
+# Machine Learning
+
+```{r setup4, echo=FALSE}
+# setting up general settings for chunks
+knitr::opts_chunk$set(
+  warning=FALSE,
+  message=FALSE
+)
+```
+
+### Introduction
+
+During the "Data Science for biology 2" course every student has the opportunity to learn a new skill for their portfolio. I have decided to introduce myself into "Machine Learning". I haven chosen machine learning, because over the past decade it has become an important skill in DataScience. Implementing algorithms to predict medical outcomes, using available data sets, can be extremely important for early medical diagnoses. Furthermore machine learning's high computational power makes it possible to analyze more factors and relations within the data at once. This can be highly beneficial while working with large data sets within the field of Life Sciences.
+
+### Goal
+
+At the end of this course I want to have created an algorithm able to predict the recurrence of breast cancer using the breast-cancer data set. The algorithm will use the R package "tidymodels" for machine learning.
+
+### Data
+
+Credits for the data:
+> This breast cancer domain was obtained from the University Medical Centre, Institute of Oncology, Ljubljana, Yugoslavia. Thanks go to M. Zwitter and M. Soklic for providing the data.
+
+The table consist of the following variables:
+   1. Class: no-recurrence-events, recurrence-events
+   2. age: 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80-89, 90-99.
+   3. menopause: lt40, ge40, premeno.
+   4. tumor-size: 0-4, 5-9, 10-14, 15-19, 20-24, 25-29, 30-34, 35-39, 40-44,
+                  45-49, 50-54, 55-59.
+   5. inv-nodes: 0-2, 3-5, 6-8, 9-11, 12-14, 15-17, 18-20, 21-23, 24-26,
+                 27-29, 30-32, 33-35, 36-39.
+   6. node-caps: yes, no.
+   7. deg-malig: 1, 2, 3.
+   8. breast: left, right.
+   9. breast-quad: left-up, left-low, right-up,	right-low, central.
+  10. irradiat:	yes, no.
+
+There are a total of 286 instances from which 201 no-recurrence-events and 85 recurrence-events.
+
+### Planning
+
+I'll spend 30 hours across 4 days on this skill across 2 weeks
+
+Week 1:
+- Day 1: Delving into the get started guide from tidymodels
+- Day 2: Delving into the get started guide from tidymodels
+
+Week 2:
+- Day 3: Apply the learned skills on the breast-cancer data set to predict the recurrence of breast cancer.
+- Day 4: Extension of past days
+
+### Dataset
+
+```{r loading in data}
+
+# loading in data
+bcData <- read.csv( 
+  here::here(
+    "data",
+    "breast-cancer.data"
+  ), 
+  header = FALSE, # dataset does not contain column names
+  col.names = c("class", "age", "menopause", "tumor_size", "inv_nodes", "node_caps", "deg_malig", "breast", "breast_quad", "irradiat") # setting column names
+)
+
+# presenting data in table form
+reactable(
+  bcData, 
+  filterable = TRUE,
+  compact = TRUE,
+  bordered = TRUE,
+  defaultPageSize = 5
+  )
+```

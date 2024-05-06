@@ -2,7 +2,31 @@
   text-align: justify;
   text-justify: inter-word;
 }
-
 .toc {
   padding-left: 15px;
 }
+
+/*
+.newChapter {
+    font-family: Helvetica, Arial, sans-serif;
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px black;
+    background: url(images/gradient.jpg) no-repeat;
+    border: 2px solid #000;
+    border-radius: 10px;
+    padding: 0px;
+    width: 100%;
+}
+
+.title{
+display: none;
+}
+
+.important {
+  color: red;
+  font-weight: bold;
+  text-shadow: 2px 2px black;
+  font-family: Helvetica, Arial, sans-serif;
+}
+*/

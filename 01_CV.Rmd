@@ -1,5 +1,3 @@
-
-
 # Thijmen Weijgertze DataScience CV
 
 ```{r setup cv, include=FALSE}

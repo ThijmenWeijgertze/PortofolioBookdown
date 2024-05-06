@@ -1,13 +1,11 @@
 ---
-title: "DataScience Portofolio"
-author: "Thijmen Weijgertze"
+title: "Data Science portfolio Thijmen Weijgertze"
 site: bookdown::bookdown_site
-documentclass: book
 data: "2024"
 output: 
     bookdown::gitbook:
-        css: style.css
-        number_sections: true
+        css: Style.css
+        number_sections: false
         anchor_sections: false
         split_by: chapter
         config:
@@ -15,6 +13,7 @@ output:
                  github: yes
                  facebook: no
                  twitter: no
+                 all: no
             toc:
                 collapse: section
                 scroll_highlight: yes
@@ -24,9 +23,9 @@ github-repo: "ThijmenWeijgertze/PortofolioBookdown"
 description: 'Data Science portfolio for the "Data Science For Biology" course given by the "HU University of Applied Sciences Utrecht"'
 ---
 
-# Main page
+# Main Page 
 
-### Introduction {-}
+### Introduction 
 
 <p class="justify">This github page is written by Thijmen Weijgertze using Rstudio. I am a 3rd year Life Science student at HU University of Applied Sciences Utrecht. In the past half year I've followed a DataScience minor provided by the HU. This Github page serves as my DataScience portofolio for showing off my DataScience skills. The course is created by @amdhaanTlscdsfb26v20Workflows2021 based on the "bookdown: Authoring Books and Technical Documents with R Markdown" book from @xieBookdownAuthoringBooks.</p>
 
