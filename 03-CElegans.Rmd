@@ -1,13 +1,5 @@
 # C. Elegans plate experiment
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  echo = TRUE,
-  warning = FALSE,
-  message = FALSE
-  )
-```
-
 ### Setup {-}
 
 ##### Setting a seed and loading packages {-}

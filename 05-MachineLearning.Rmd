@@ -18,7 +18,6 @@ At the end of this course I want to have created an algorithm able to predict th
 
 ### Data
 
-Credits for the data:
 > This breast cancer domain was obtained from the University Medical Centre, Institute of Oncology, Ljubljana, Yugoslavia. Thanks go to M. Zwitter and M. Soklic for providing the data.
 
 The table consist of the following variables:
@@ -60,6 +59,7 @@ Week 2:
 ### Dataset
 
 ```{r loading in data}
+library(gt)
 
 # loading in data
 bcData <- read.csv( 

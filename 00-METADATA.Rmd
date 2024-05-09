@@ -1,25 +1,26 @@
 # MetaData
 
-### Source code {.unnumbered}
+### Source code {-}
 
 Bookdown source code: [PortofolioBookdown](https://github.com/ThijmenWeijgertze/PortofolioBookdown)
 
-Website source code: [ThijmenWeijgertze-portofolio](https://github.com/ThijmenWeijgertze/PortofolioBookdown)
+Website source code: [ThijmenWeijgertze-portofolio](https://github.com/ThijmenWeijgertze/ThijmenWeijgertze-portfolio)
 
 Website link: [thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/](https://thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/)
 
-### Dependency packages {.unnumbered}
+### Dependency packages {-}
 
 -   tidyverse
 -   tidymodels
 -   bookdown
 -   reactable
+-   gt
 -   fs
 -   tidyverse
 -   RColorBrewer
 -   readxl
 
-### Directory roadmap
+### Directory roadmap {-}
 
 The structure of this portfolio's source code is as follows:
 
@@ -30,7 +31,7 @@ library(tidyverse)
 dir_tree(".", recurse = TRUE, regexp = "^.gitignore$|^[^_|(.git)]", all = TRUE)
 ```
 
-### dataRaw & data folder
+### dataRaw & data folder {-}
 
 The dataRaw folder holds the original data files. These data files are unedited and remain in untouched in the folder as back-up. The data within the data folder are used within the Rmarkdown files and may differ from the original source in dataRaw. 
 

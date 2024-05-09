@@ -21,7 +21,20 @@ output:
                 toc_depth: 3
 github-repo: "ThijmenWeijgertze/PortofolioBookdown"
 description: 'Data Science portfolio for the "Data Science For Biology" course given by the "HU University of Applied Sciences Utrecht"'
+params:
+  printCode: true
+  printWarning: false
+  printMessage: false
 ---
+
+```{r, index setup, include=FALSE}
+# set this option in the first code chunk in the document
+knitr::opts_chunk$set(
+  echo = params$printCode,
+  warning = params$printWarning,
+  message = params$printMessage
+  )
+```
 
 # Main Page 
 
