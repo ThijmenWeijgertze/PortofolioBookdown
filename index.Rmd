@@ -22,9 +22,12 @@ output:
 github-repo: "ThijmenWeijgertze/PortofolioBookdown"
 description: 'Data Science portfolio for the "Data Science For Biology" course given by the "HU University of Applied Sciences Utrecht"'
 params:
-  printCode: true
-  printWarning: false
-  printMessage: false
+  printCode: TRUE
+  printWarning: FALSE
+  printMessage: FALSE
+  covidData: data/CovidCases.csv
+  covidYear: 2020
+  covidMonth: 1
 ---
 
 ```{r, index setup, include=FALSE}
