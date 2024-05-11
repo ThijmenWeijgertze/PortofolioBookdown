@@ -1,1 +1,91 @@
-# Analyzing covid cases using params
+# Analyzing Covid-19 data using parameters
+
+### Selected parameters
+
+covidData parameter: `r paste(params$covidData)`  
+covidYear parameter: `r paste(params$covidYear)`  
+covidMonth parameter: `r paste(params$covidMonth)`  
+
+### Inspecting data
+
+Pseudocode pyramid plot
+
+- load the data
+- select the right columns using the selected parameters
+- change the geoId type to factor
+- calculate the total cases and deaths per geoId  
+- divide the cases and deaths per geoId by the geoId's population 
+- take the log1p of total cases and total deaths so that they can be plotted in the same ggplot
+- make pyramid plot out of the total cases and total deaths https://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html
+
+```{r}
+# reading covidData parameter
+covidData <- read.csv(params$covidData)
+
+# filtering on selected parameters
+covidDataFil <- covidData %>% dplyr::filter(year==params$covidYear & month==params$covidMonth) 
+
+# inspect the selected tables
+covidDataFil %>% reactable::reactable(defaultPageSize = 5, compact = TRUE, filterable = TRUE)
+```
+
+```{r}
+# make geoId a factor
+covidDataFil$geoId <- factor(covidDataFil$geoId, levels = unique(covidDataFil$geoId))
+
+# check type
+str(covidDataFil$geoId)
+
+# select the columns geoId and population
+cdGeoPop <- covidDataFil %>% select(geoId, countriesAndTerritories, popData2020) %>% unique()
+
+# calulate total cases and deaths per geoId
+totalCases <- aggregate(covidDataFil$cases, list(geoId = covidDataFil$geoId), sum)
+names(totalCases)[2] <- "totalCases"
+totalDeaths <- aggregate(covidDataFil$deaths, list(geoId = covidDataFil$geoId), sum)
+names(totalDeaths)[2] <- "totalDeaths"
+
+# merge dataframes together like left join would in SQL
+covidDataJoined <- cdGeoPop %>% 
+  left_join(totalCases, by="geoId") %>% 
+  left_join(totalDeaths, by="geoId")
+
+# normalize the data by dividing by population
+covidDataJoined <- covidDataJoined %>% mutate(
+    casesNormalized=totalCases / popData2020,
+    deathsNormalized=totalDeaths / popData2020)
+
+# death and cases in the same row in preparation for the plot (tidying data)
+covidDataJoined <- covidDataJoined %>% pivot_longer(cols=c(totalCases,totalDeaths), names_to = "totalCases_totalDeaths", values_to = "Normalized")
+
+# check the dataframe
+covidDataJoined
+
+# make totalCases_totalDeaths a factor
+covidDataJoined$totalCases_totalDeaths <- factor(covidDataJoined$totalCases_totalDeaths, levels = unique(covidDataJoined$totalCases_totalDeaths))
+
+# check type
+str(covidDataJoined$totalCases_totalDeaths)
+
+# make pyramid plot
+# https://stackoverflow.com/questions/14680075/simpler-population-pyramid-in-ggplot2
+library(ggplot2)
+
+covidDataJoined %>%
+  mutate(countriesAndTerritories_reordered = reorder(countriesAndTerritories, log1p(Normalized))) %>%
+  ggplot(aes(
+    x = log1p(Normalized) * ifelse(totalCases_totalDeaths == "totalDeaths", -1, 1), # if it's totalDeaths then multiply by -1 otherwise multiply by 1
+    y = countriesAndTerritories_reordered,
+    fill = totalCases_totalDeaths)) +
+  geom_col() +
+  labs(
+    title = paste(
+      "Impact of the corona pandemic as of", 
+      month(params$covidMonth, label = TRUE, abbr = FALSE), 
+      params$covidYear),
+    x = "log1p((Cases | Deaths) / population)",
+    y = "Countries & Territories") +
+  theme(axis.text.y = element_text(size = 8)) # text size y axis
+
+```
+

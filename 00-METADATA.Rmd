@@ -19,6 +19,8 @@ Website link: [thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/](https:/
 -   tidyverse
 -   RColorBrewer
 -   readxl
+-   ggfortify
+-   twPackage (devtools::install_github("ThijmenWeijgertze/twPackage", build_vignettes = TRUE))
 
 ### Directory roadmap {-}
 
@@ -33,7 +35,7 @@ dir_tree(".", recurse = TRUE, regexp = "^.gitignore$|^[^_|(.git)]", all = TRUE)
 
 ### dataRaw & data folder {-}
 
-The dataRaw folder holds the original data files. These data files are unedited and remain in untouched in the folder as back-up. The data within the data folder are used within the Rmarkdown files and may differ from the original source in dataRaw. 
+<p class="justify">The dataRaw folder holds the original data files. These data files are unedited and remain in untouched in the folder as back-up. The data within the data folder are used within the Rmarkdown files and may differ from the original source in dataRaw.<p> 
 
 The data folder consists of the following files:
 - CE-LIQ-FLOW-062_Tidydata.xlsx: C.elegans data used in the C.elegans plate analysis

@@ -1,0 +1,114 @@
+
+# Rpackage (twPackage)
+
+```{r setup5, echo=FALSE}
+# setting up general settings for chunks
+knitr::opts_chunk$set(
+  warning=FALSE,
+  message=FALSE
+)
+```
+
+### Introduction
+
+The package consists of 4 functions for a DataScience portofolio. The package is created with the following guide: @handleywickhamPackages2ndEdition2023. 
+
+### Installation
+
+The package can be installed via github: 
+- devtools::install_github("ThijmenWeijgertze/twPackage", build_vignettes = TRUE)
+
+The twPackage makes use of the following packages
+- here
+- reactable
+- readr
+- dplyr
+- magrittr
+
+Suggested packages: 
+- knitr
+- rmarkdown
+
+### Function and data explanation
+
+tw_factor()
+
+-   description: This command changes a column type to factor with unique levels using the unique() command
+-   usage: tw_factor(x)
+-   x: The column to be changed into a factor
+-   returns: Column with type factor
+
+tw_csv_rds()
+
+-   description: This command exports a variable containing a dataframe or tibble into a .csv and .rds file at a chosen location. The packages relies on the readr and here package. A project must be loaded in order to make this command work
+-   usage: tw_csv_rds(x, path)
+-   x Dataframe or tibble
+-   path The path where the files must be stored. The path must be specified starting at the rproject directory. Do not add .csv or .rds at the end of the file name
+-   returns: A .csv and .tsv from a dataframe or tibble at the chosen location
+
+tw_table()
+
+-   description: This command creates a basic table with the reactable package.
+-   usage: tw_table(x)
+-   x: A variable containing a dataframe or tibble
+-   returns: A basic table made with the reactable package
+
+tw_filter_select()
+
+-   description: This command creates a basic table with the reactable package.
+-   usage: tw_filter_select(x, filter_col, filter_value, select)
+-   x: The table to be filtered
+-   filter_col: The column where the filter_value can be found
+-   filter_value: The value to be filtered on
+-   select: The columns to be selected
+-   returns: A filtered and selected data
+
+Pokemon data
+
+-   description: A dataframe with 800 rows and 13 columns containing pokemon data from around 2016.
+-   usage: pokemon
+-   returns: The pokemon dataset
+-   source: [Pokemon data](https://gist.github.com/armgilles/194bcff35001e7eb53a2a8b441e8b2c6)
+
+### Function examples
+
+loading package
+
+```{r examples}
+# load package
+library(twPackage)
+```
+
+tw_factor()
+
+```{r}
+# Changing column Type.1 into a factor with unique levels
+pokemon$Type.1 <- tw_factor(pokemon$Type.1)
+levels(pokemon$Type.1)
+```
+
+tw_csv_rds()
+
+```{r, eval=FALSE}
+# Exporting the pokemon table as pokemon.csv and pokemon.rds in the pokemon_data folder
+tw_csv_rds(pokemon, path = "data_pokemon/pokemon")
+```
+
+tw_table()
+
+```{r}
+# creating a table with 5 rows per page
+tw_table(pokemon, pagesize = 5)
+```
+
+tw_filter_select()
+
+```{r}
+# Filtering on Type.1 = Fire and selecting the columns Name and Type.1
+tw_filter_select(
+  pokemon, 
+  filter_col = "Type.1", 
+  filter_value = "Fire", 
+  select = c("Name", "Type.1")
+  ) %>% head(5)
+```

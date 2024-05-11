@@ -1,0 +1,9 @@
+# Antimicrobial resistance project
+
+### Introduction
+
+<p class="justify">During the Anti Microbial Resistance project, our project group worked on setting up a pipeline on behalf of the RIVM. The pipeline consists of a combination of the tools fastq-dump, fastqc, trimgalore, unicycler, plasmidEC, gplas2 and abricate. With these tools, the pipeline is able to take an SRA code with illumina data (short read) from a bacterial sample as input. After which it outputs the resistance genes in plasmids. During this project, version control of R packages, setting up a vignette and working with a github workflow were also taken into account. It has been decided to keep the github repository private.</p>
+
+### Principle
+
+<p class="justify">Using a initiate.Rmd file all dependencies could be installed within a conda enviroment with the corresponding versions of all packages. SRA codes would be placed into a sra_input.txt file. Starting the pipeling Fastq-dump would cycle thorough the SRA codes and retrieve the SRA data from the database. Fastqc would make a report on quality control after the SRA data had been loaded. Besides the fastqc report another script would read the counts and lenghts of the short read fragments and make a data statistics report. Trim-galore would trim downstream if the q-score dropped too low. Unicycler would use the trimmed output and assemble the bacterial genome. PlasmidEC used the unicycler output to distinguish plasmid from genome. Gplas2 then used the data from unicycler and plasmidEC together to bin plasmid-predicted contigs based on sequence composition, coverage and assembly graph information. At last Abricate would use different resistance gene databases like NCBI to find resistence genes on the plasmid output from gplas2 and make a report on its findings.</p>
