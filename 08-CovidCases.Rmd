@@ -16,7 +16,7 @@ Pseudocode pyramid plot
 - calculate the total cases and deaths per geoId  
 - divide the cases and deaths per geoId by the geoId's population 
 - take the log1p of total cases and total deaths so that they can be plotted in the same ggplot
-- make pyramid plot out of the total cases and total deaths https://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html
+- make pyramid plot out of the total cases and total deaths @alexAnswerSimplerPopulation2022; @eeeeedAnswerSimplerPopulation2019; @elfertsAnswerSimplerPopulation2013; @guyabelAnswerSimplerPopulation2016; @Top50Ggplot2
 
 ```{r}
 # reading covidData parameter
@@ -88,4 +88,6 @@ covidDataJoined %>%
   theme(axis.text.y = element_text(size = 8)) # text size y axis
 
 ```
+
+
 

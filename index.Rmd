@@ -2,9 +2,10 @@
 title: "Data Science portfolio Thijmen Weijgertze"
 site: bookdown::bookdown_site
 data: "2024"
+bibliography: References.bib
 output: 
     bookdown::gitbook:
-        css: Style.css
+        css: css/style.css
         number_sections: false
         anchor_sections: false
         split_by: chapter
@@ -20,7 +21,7 @@ output:
                 before: <li class="toc"><h2>Table of Contents</h2></li>
                 toc_depth: 3
 github-repo: "ThijmenWeijgertze/PortofolioBookdown"
-description: 'Data Science portfolio for the "Data Science For Biology" course given by the "HU University of Applied Sciences Utrecht"'
+description: 'Data Science portfolio for the "Data Science For Biology" course given by the "HU University of Applied Sciences Utrecht written by Thijmen Weijgertze"'
 params:
   printCode: TRUE
   printWarning: FALSE
@@ -43,10 +44,10 @@ knitr::opts_chunk$set(
 
 ### Introduction 
 
-<p class="justify">This github page is written by Thijmen Weijgertze using Rstudio. I am a 3rd year Life Science student at HU University of Applied Sciences Utrecht. In the past half year I've followed a DataScience minor provided by the HU. This Github page serves as my DataScience portofolio for showing off my DataScience skills. The course is created by @amdhaanTlscdsfb26v20Workflows2021 based on the "bookdown: Authoring Books and Technical Documents with R Markdown" book from @xieBookdownAuthoringBooks.</p>
+<p class="justify">This github page is written by Thijmen Weijgertze using Rstudio. I am a 3rd year Life Science student at HU University of Applied Sciences Utrecht. In the past half year I've followed a DataScience minor provided by the HU. This Github page serves as my DataScience portofolio for showing off my DataScience skills. The course is created by @gestelDataScienceWorkflows based on the "bookdown: Authoring Books and Technical Documents with R Markdown" book from @xieBookdownAuthoringBooksa.</p>
 
 ### Contact information {-}
 
-- [E-mail](thijmen.lifesciences@gmail.com)
-- [GitHub](https://github.com/ThijmenWeijgertze)
-- [LinkedIn](https://www.linkedin.com/in/thijmen-weijgertze-968a5a265/)
+- [E-mail: thijmen.lifesciences@gmail.com](thijmen.lifesciences@gmail.com)
+- [GitHub: https://github.com/ThijmenWeijgertze](https://github.com/ThijmenWeijgertze)
+- [LinkedIn: https://www.linkedin.com/in/thijmen-weijgertze-968a5a265/](https://www.linkedin.com/in/thijmen-weijgertze-968a5a265/)

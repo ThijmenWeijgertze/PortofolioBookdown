@@ -2,11 +2,11 @@
 
 ### About me
 
-Hi I'm "Thijmen Weijgertze" a 20 year old student from Ede, Gelderland (2003). I tend to be very passionate about my study and love to talk about topics surrounding Life Sciences. As of writing this résumé I live with my parents, sister and our dog "Saartje" (breed: markiesje). In my free time my biggest hobby is music. I produce music from time to time and play piano almost daily. Besides music I also like to spent time with friends in the weekends and cycle so now and then. 
+<p class="justify">I'm "Thijmen Weijgertze" (2003) from Ede, Gelderland. I tend to be very passionate about my study and love to talk about topics surrounding Life Sciences. As of writing this résumé I live with my parents, sister and our dog "Saartje" (breed: markiesje). In my free time my biggest hobby is music. I produce music from time to time and play piano almost daily. Besides music I also like to spent time with friends in the weekends and cycle so now and then.</p>
 
 ### My education
 
-```{r}
+```{r, echo=FALSE}
 library(reactable)
 library(tibble)
 tibble(Degree=c("Havo (N&T and N&G)","Life Science"), 
@@ -79,8 +79,7 @@ tibble(Degree=c("Havo (N&T and N&G)","Life Science"),
 
 ### Contact info
 
-- phone:&emsp;0630477492
-- www:&emsp;https://thijmenweijgertze.github.io
+- www:&emsp;https://thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/
 - email:&emsp;thijmen.lifesciences@gmail.com
 - github:&emsp;https://github.com/ThijmenWeijgertze
 - linkedin:&emsp;https://www.linkedin.com/in/thijmen-weijgertze-968a5a265/
