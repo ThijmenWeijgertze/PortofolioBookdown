@@ -72,9 +72,10 @@ str(covidDataJoined$totalCases_totalDeaths)
 library(ggplot2)
 
 covidDataJoined %>%
-  mutate(countriesAndTerritories_reordered = reorder(countriesAndTerritories, log1p(Normalized))) %>%
+  mutate(countriesAndTerritories_reordered = reorder(countriesAndTerritories, Normalized)) %>%
   ggplot(aes(
-    x = log1p(Normalized) * ifelse(totalCases_totalDeaths == "totalDeaths", -1, 1), # if it's totalDeaths then multiply by -1 otherwise multiply by 1
+    # if it's totalDeaths then multiply by -1 otherwise multiply by 1. Log1p is used to avoid log(0)
+    x = log1p(Normalized) * ifelse(totalCases_totalDeaths == "totalDeaths", -1, 1), 
     y = countriesAndTerritories_reordered,
     fill = totalCases_totalDeaths)) +
   geom_col() +
