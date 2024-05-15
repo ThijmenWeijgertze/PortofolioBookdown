@@ -1,4 +1,4 @@
-# MetaData
+# MetaData {#00}
 
 ### Source code {-}
 
@@ -10,6 +10,7 @@ Website link: [thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/](https:/
 
 ### Dependency packages {-}
 
+-   devtools
 -   tidyverse
 -   tidymodels
 -   bookdown
@@ -21,6 +22,27 @@ Website link: [thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/](https:/
 -   readxl
 -   ggfortify
 -   twPackage (devtools::install_github("ThijmenWeijgertze/twPackage", build_vignettes = TRUE))
+
+Installing dependency packages:
+```{r dependency packages}
+# if not installed: installing dependency packages from cran
+for (package in c("devtools", "tidyverse", "tidymodels", "bookdown", "reactable", "gt", "fs", "RColorBrewer", "readxl", "ggfortify")) {
+  if (!require(package, character.only = TRUE)) {
+    install.packages(package, dependencies = TRUE)
+    library(package, character.only = TRUE)
+  } else {
+    library(package, character.only = TRUE)
+  }
+}
+
+
+# install twPackage from github
+if (!require("twPackage", character.only = TRUE)) {
+  devtools::install_github("ThijmenWeijgertze/twPackage", build_vignettes = TRUE)
+  library(package, character.only = TRUE)
+}
+```
+
 
 ### Directory roadmap {-}
 

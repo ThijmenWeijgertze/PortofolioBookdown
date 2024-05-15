@@ -1,4 +1,4 @@
-# Guerrilla Analytics
+# Guerrilla Analytics {#02}
 
 ### Example Project {-}
 

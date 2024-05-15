@@ -7,6 +7,21 @@
   padding-left: 15px;
 }
 
+.book {
+  background-color: #f0f;
+}
+
+.link {
+  color: red;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+p.caption {
+  color: red;
+  margin-top: 10px;
+}
+
 .important {
   color: red;
   font-weight: bold;
@@ -14,16 +29,27 @@
   font-family: Helvetica, Arial, sans-serif;
 }
 
+h1.title {
+  color: rgb(0,80,80);
+  font-weight: 1000;
+}
+
+book-body {
+  background-color: red;
+}
+
 h1 {
   color: rgb(0,102,102);
+  /*font-family: "Highman", Times, serif;*/
 }
 
 h2, h3, h4 {
   color: rgb(0,153,153);
+  /*font-family: "Times New Roman", Times, serif;*/
 }
 
 /*
-.newChapter {
+h1 {
     font-family: Helvetica, Arial, sans-serif;
     text-align: center;
     color: white;

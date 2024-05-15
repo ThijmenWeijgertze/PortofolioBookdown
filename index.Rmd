@@ -27,8 +27,8 @@ params:
   printWarning: FALSE
   printMessage: FALSE
   covidData: data/CovidData.csv
-  covidYear: 2021
-  covidMonth: 1
+  covidYear: 2020
+  covidMonth: 4
 ---
 
 ```{r, index setup, include=FALSE}
@@ -40,11 +40,25 @@ knitr::opts_chunk$set(
   )
 ```
 
-# Main Page 
+# Main Page {#index}
 
 ### Introduction 
 
 <p class="justify">This github page is written by Thijmen Weijgertze using Rstudio. I am a 3rd year Life Science student at HU University of Applied Sciences Utrecht. In the past half year I've followed a DataScience minor provided by the HU. This Github page serves as my DataScience portofolio for showing off my DataScience skills. The course is created by @gestelDataScienceWorkflows based on the "bookdown: Authoring Books and Technical Documents with R Markdown" book from @xieBookdownAuthoringBooksa.</p>
+
+### Toc
+
+- [Main Page](#index)
+- [Meta Data](#00)
+- [DataScience CV](#01)
+- [Guerrilla Analytics](#02)
+- [C. Elegans plate experiment](#03)
+- [Open Peer Review](#04)
+- [Machine Learning](#05)
+- [Rpackage (twPackage)](#06)
+- [Antimicrobial resistance project](#07)
+- [Analyzing Covid-19 data using parameters](#08)
+- [Bibliography](#20)
 
 ### Contact information {-}
 

@@ -1,4 +1,4 @@
-# Analyzing Covid-19 data using parameters
+# Analyzing Covid-19 data using parameters {#08}
 
 ### Selected parameters
 
@@ -6,7 +6,7 @@ covidData parameter: `r paste(params$covidData)`
 covidYear parameter: `r paste(params$covidYear)`  
 covidMonth parameter: `r paste(params$covidMonth)`  
 
-### Inspecting data
+### Psuedocode
 
 Pseudocode pyramid plot
 
@@ -18,6 +18,8 @@ Pseudocode pyramid plot
 - take the log1p of total cases and total deaths so that they can be plotted in the same ggplot
 - make pyramid plot out of the total cases and total deaths @alexAnswerSimplerPopulation2022; @eeeeedAnswerSimplerPopulation2019; @elfertsAnswerSimplerPopulation2013; @guyabelAnswerSimplerPopulation2016; @Top50Ggplot2
 
+### Data reading
+
 ```{r}
 # reading covidData parameter
 covidData <- read.csv(params$covidData)
@@ -28,6 +30,8 @@ covidDataFil <- covidData %>% dplyr::filter(year==params$covidYear & month==para
 # inspect the selected tables
 covidDataFil %>% reactable::reactable(defaultPageSize = 5, compact = TRUE, filterable = TRUE)
 ```
+
+### prepare the data for the pyramid plot
 
 ```{r}
 # make geoId a factor
@@ -66,7 +70,11 @@ covidDataJoined$totalCases_totalDeaths <- factor(covidDataJoined$totalCases_tota
 
 # check type
 str(covidDataJoined$totalCases_totalDeaths)
+```
 
+### Pyramid plot
+
+```{r pyramid plot}
 # make pyramid plot
 # https://stackoverflow.com/questions/14680075/simpler-population-pyramid-in-ggplot2
 library(ggplot2)
@@ -84,11 +92,85 @@ covidDataJoined %>%
       "Impact of the corona pandemic as of", 
       month(params$covidMonth, label = TRUE, abbr = FALSE), 
       params$covidYear),
-    x = "log1p((Cases | Deaths) / population)",
+    x = "log1p((Cases | Deaths) / population2020)",
     y = "Countries & Territories") +
-  theme(axis.text.y = element_text(size = 8)) # text size y axis
-
+  theme(axis.text.y = element_text(size = 8)) + # text size y axis
+  scale_color_brewer(palette = "Dark2") # colorblind friendly color scale
 ```
 
+### Preparing the data for the heatmap
 
+Cases:
 
+```{r}
+# matrix preparation for cases
+covidDataMatrixCases <- covidDataFil %>% mutate(Normalized = cases/popData2020) %>%  select(countriesAndTerritories, day, Normalized) 
+
+# https://www.statology.org/sort-dataframe-by-column-in-r/
+covidDataMatrixCases <- covidDataMatrixCases[order(covidDataMatrixCases$day), ]
+
+# column per day
+covidDataMatrixCases <- covidDataMatrixCases %>% pivot_wider(names_from = day, values_from = Normalized)
+
+# store the names because the matrix only wants one type (numerical, string, etc..)
+# drop=TRUE simplifies the values to store it only as a vector and not as a column of a dataframe
+# https://sebastianraschka.com/Articles/heatmaps_in_r.html
+# https://stackoverflow.com/questions/14123792/drop-true-doesnt-drop-factor-levels-in-data-frame-while-in-vector-it-does
+rnames <- covidDataMatrixCases[,1, drop=TRUE]
+
+# convert all columns except the first to numeric
+covidDataMatrixCases <- data.matrix(covidDataMatrixCases[,2:ncol(covidDataMatrixCases)])
+
+# assign column names to matrix
+rownames(covidDataMatrixCases) <- rnames
+```
+
+Deaths:
+
+```{r}
+# matrix preparation for cases
+covidDataMatrixDeaths <- covidDataFil %>% mutate(Normalized = deaths/popData2020) %>%  select(countriesAndTerritories, day, Normalized) 
+
+# https://www.statology.org/sort-dataframe-by-column-in-r/
+covidDataMatrixDeaths <- covidDataMatrixDeaths[order(covidDataMatrixDeaths$day), ]
+
+# column per day
+covidDataMatrixDeaths <- covidDataMatrixDeaths %>% pivot_wider(names_from = day, values_from = Normalized)
+
+# store the names because the matrix only wants one type (numerical, string, etc..)
+# drop=TRUE simplifies the values to store it only as a vector and not as a column of a dataframe
+# https://sebastianraschka.com/Articles/heatmaps_in_r.html
+# https://stackoverflow.com/questions/14123792/drop-true-doesnt-drop-factor-levels-in-data-frame-while-in-vector-it-does
+rnames <- covidDataMatrixDeaths[,1, drop=TRUE]
+
+# convert all columns except the first to numeric
+covidDataMatrixDeaths <- data.matrix(covidDataMatrixDeaths[,2:ncol(covidDataMatrixDeaths)])
+
+# assign column names to matrix
+rownames(covidDataMatrixDeaths) <- rnames
+```
+
+### Heatmap
+
+```{r heatmap, fig.width=10}
+# heatmap plot
+heatmap(
+  covidDataMatrixCases, # data
+  Rowv=NA, Colv=NA, # no clustering
+  main = paste("Cases/population2020 per day as of", 
+      month(params$covidMonth, label = TRUE, abbr = FALSE), 
+      params$covidYear), # title name
+  xlab = "Day", # x-axis name
+  ylab = "Country or Territory" # y-axis name
+  )
+
+heatmap(
+  covidDataMatrixDeaths, # data
+  Rowv=NA, Colv=NA, # no clustering
+  main = paste("Deaths/population2020 per day as of", 
+      month(params$covidMonth, label = TRUE, abbr = FALSE), 
+      params$covidYear), # title name
+  xlab = "Day", # x-axis name
+  ylab = "Country or Territory" # y-axis name
+  )
+```
