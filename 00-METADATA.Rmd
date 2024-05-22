@@ -21,9 +21,10 @@ Website link: [thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/](https:/
 -   RColorBrewer
 -   readxl
 -   ggfortify
+-   tableone
 -   twPackage (devtools::install_github("ThijmenWeijgertze/twPackage", build_vignettes = TRUE))
 
-Installing dependency packages:
+Installing dependency packages (if it doesn't download automatically please install the packages by hand):
 ```{r dependency packages}
 # if not installed: installing dependency packages from cran
 for (package in c("devtools", "tidyverse", "tidymodels", "bookdown", "reactable", "gt", "fs", "RColorBrewer", "readxl", "ggfortify")) {
@@ -57,7 +58,7 @@ dir_tree(".", recurse = TRUE, regexp = "^.gitignore$|^[^_|(.git)]", all = TRUE)
 
 ### dataRaw & data folder {-}
 
-<p class="justify">The dataRaw folder holds the original data files. These data files are unedited and remain in untouched in the folder as back-up. The data within the data folder are used within the Rmarkdown files and may differ from the original source in dataRaw.<p> 
+<p class="justify">The dataRaw folder holds the original data files. These data files are unedited and remain as untouched in the dataRaw folder as back-up. The data within the data folder are used within the Rmarkdown files and may differ from the original source in dataRaw.<p> 
 
 The data folder consists of the following files:
 - CE-LIQ-FLOW-062_Tidydata.xlsx: C.elegans data used in the C.elegans plate analysis

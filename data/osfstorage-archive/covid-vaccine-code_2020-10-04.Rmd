@@ -1,0 +1,6 @@
+---
+title: "01_covid-vaccine-survey_2020-07-07"
+author: "Adam Palayew ID-260762622"
+date: '2020-07-10'
+output: pdf_document
+---

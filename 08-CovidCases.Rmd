@@ -41,7 +41,7 @@ covidDataFil$geoId <- factor(covidDataFil$geoId, levels = unique(covidDataFil$ge
 str(covidDataFil$geoId)
 
 # select the columns geoId and population
-cdGeoPop <- covidDataFil %>% select(geoId, countriesAndTerritories, popData2020) %>% unique()
+cdGeoPop <- covidDataFil %>% dplyr::select(geoId, countriesAndTerritories, popData2020) %>% unique()
 
 # calulate total cases and deaths per geoId
 totalCases <- aggregate(covidDataFil$cases, list(geoId = covidDataFil$geoId), sum)
@@ -104,7 +104,7 @@ Cases:
 
 ```{r}
 # matrix preparation for cases
-covidDataMatrixCases <- covidDataFil %>% mutate(Normalized = cases/popData2020) %>%  select(countriesAndTerritories, day, Normalized) 
+covidDataMatrixCases <- covidDataFil %>% mutate(Normalized = cases/popData2020) %>%  dplyr::select(countriesAndTerritories, day, Normalized) 
 
 # https://www.statology.org/sort-dataframe-by-column-in-r/
 covidDataMatrixCases <- covidDataMatrixCases[order(covidDataMatrixCases$day), ]
@@ -129,7 +129,7 @@ Deaths:
 
 ```{r}
 # matrix preparation for cases
-covidDataMatrixDeaths <- covidDataFil %>% mutate(Normalized = deaths/popData2020) %>%  select(countriesAndTerritories, day, Normalized) 
+covidDataMatrixDeaths <- covidDataFil %>% mutate(Normalized = deaths/popData2020) %>%  dplyr::select(countriesAndTerritories, day, Normalized) 
 
 # https://www.statology.org/sort-dataframe-by-column-in-r/
 covidDataMatrixDeaths <- covidDataMatrixDeaths[order(covidDataMatrixDeaths$day), ]

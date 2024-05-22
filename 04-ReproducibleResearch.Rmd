@@ -42,3 +42,5 @@ Code Availability | Authors have shared access to the most updated code that the
 <p class="important">DE CODE STAAT NU WEL ONLINE DUS DE CONCLUSIE VERANDEREN <-- !!!</p>
 
 <p class="justify">The article scores positive in most expects except the code availibity and ethics section. Although the article specified a [github link](https://github.com/resendislab/POST_COVID_Metabolome_MachineLearning) in their publication the link redirects to a 404 error page. This probably indicates that the repository is either set to private, renamed or deleted. The last version of the published pdf at this moment is from April 17th 2024. Looking through the other public repositories it doesn't seem to be renamed as of writing this chapter (2024-04-24). Thereby the article does not pass the open peer review.</p>
+
+### Reproducing R code
