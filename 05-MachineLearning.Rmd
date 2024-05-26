@@ -169,7 +169,7 @@ bcData_rf_ranger_mod <- rand_forest(
   trees = 2000, # number of trees
   min_n = tune(), # minimal node size
 ) %>% 
-  set_engine("ranger", num.threads = cores - 1) 
+  set_engine("ranger", num.threads = cores - 1, importance = "impurity") 
 # using the ranger engine
 # using all available cores except 1 
 # so that other smaller processes on the computer still run
@@ -248,21 +248,25 @@ bcData_lr_res %>%
 ```
 
 ```{r}
-bcData_lr_res %>%
+bcData_best_trees <- bcData_lr_res %>%
   show_best(metric = "accuracy")
+bcData_best_trees
 ```
 
 ```{r}
 bcData_best_tree <- bcData_lr_res %>%
   select_best(metric = "accuracy")
 bcData_best_tree
+
+bcData_fourth_best_tree <- bcData_best_trees %>% select("mtry", "min_n", ".config") %>% filter(row_number() == 4)
+bcData_fourth_best_tree
 ```
 
 ```{r}
 # using the best performing model
 bcData_final_workflow <- 
   bcData_rf_workflow %>% 
-  finalize_workflow(bcData_best_tree)
+  finalize_workflow(bcData_fourth_best_tree)
 
 # fit
 bcData_final_fit <- 
@@ -274,31 +278,37 @@ bcData_final_fit <-
 # metrics
 bcData_final_fit %>%
   collect_metrics()
+```
 
+```{r}
 # predictions
 bcData_final_fit %>%
   collect_predictions() %>% 
-  roc_curve(class, .pred_RE) %>% 
+  roc_curve(class, .pred_NRE) %>% 
   autoplot()
 ```
 
-
-
 ```{r}
-# fitting/ training model
-library(ranger)
-set.seed(222)
-bcData_rf_fit_rs <- 
-  bcData_rf_workflow %>% 
-  fit_resamples(folds)
+bcData_final_tree <- extract_workflow(bcData_final_fit)
+bcData_final_tree
 ```
+
+
+
 https://www.tidymodels.org/learn/models/conformal-regression/
 
 ```{r}
-extract_parameter_set_dials(bcData_rf_mod)
+library(rpart.plot)
+bcData_final_tree %>%
+  extract_fit_engine() %>%
+  rpart.plot(roundint = FALSE)
 ```
 
 ```{r}
+library(vip)
+bcData_final_tree %>% 
+  extract_fit_parsnip() %>% 
+  vip(num_features = 20)
 
 ```
 

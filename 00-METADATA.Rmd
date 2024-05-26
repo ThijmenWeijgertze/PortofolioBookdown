@@ -24,7 +24,8 @@ Website link: [thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/](https:/
 -   ggfortify
 -   tableone
 -   broom.mixed
--   dotwhisker (dependencies: leeper/prediction & leeper/margins)
+-   rpart.plot
+-   vip
 -   twPackage (devtools::install_github("ThijmenWeijgertze/twPackage", build_vignettes = TRUE))
 
 Installing dependency packages (if it doesn't download automatically please install the packages by hand):
