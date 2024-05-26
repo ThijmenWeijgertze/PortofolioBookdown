@@ -1,11 +1,9 @@
-# Appendices
-
-### Reproduced code for chapter: Open Peer Review
+# Appendix 1: COVID-19 Vaccine paper {#20}
 
 see: [Open Peer Review](#04)
 
-###### loading and wrangling data
-```{r bringing in data, include=FALSE}
+### loading and wrangling data
+```{r bringing in data}
 library(tidyverse) 
 library(MASS)
 
@@ -113,7 +111,7 @@ data_test <- data[,4:13]
 
 
 
-###Question:I would follow my employer’s recommendation to get a COVID-19 vaccine once the government has approved it as safe and effective.
+### Question:I would follow my employer’s recommendation to get a COVID-19 vaccine once the government has approved it as safe and effective.
 
 ```{r buisness 2}
 
@@ -289,7 +287,7 @@ educ
 ```
 
 
-###Question:If a COVID-19 vaccine is proven safe and effective and is available to me, I will take it.
+### Question:If a COVID-19 vaccine is proven safe and effective and is available to me, I will take it.
 
 
 ```{r vaccine}
@@ -466,7 +464,7 @@ educ
 ```
 
 
-###regression
+### regression
 ```{r regression biz}
 data$biz_reg <- ifelse(data$Business2 > 3, 1, 0)
 
@@ -505,7 +503,7 @@ exp(cbind(coef(fit9), confint(fit9)))
 
 ```
 
-#regression
+### regression
 ```{r regression vax}
 data$vacc2_reg <- ifelse(data$Vaccine > 3, 1, 0)
 
@@ -544,7 +542,7 @@ exp(cbind(coef(fit9), confint(fit9)))
 
 ```
 
-###Table
+### Table
 
 ```{r}
 
@@ -577,7 +575,7 @@ tab_2 <- print(tab_2)
 
 ```
 
-###Supplemental figure
+### Supplemental figure
 
 ```{r supplemental figure}
 

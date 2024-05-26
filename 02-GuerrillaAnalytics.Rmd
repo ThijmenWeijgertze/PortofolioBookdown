@@ -4,8 +4,6 @@
 
 ```{r echo=TRUE}
 # Load example image
-library(here)
-
 knitr::include_graphics(here::here(
   "data",
   "GuerrillaAnalytics.png"

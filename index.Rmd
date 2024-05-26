@@ -58,7 +58,8 @@ knitr::opts_chunk$set(
 - [Rpackage (twPackage)](#06)
 - [Antimicrobial resistance project](#07)
 - [Analyzing Covid-19 data using parameters](#08)
-- [Bibliography](#20)
+- [Appendices](#20)
+- [Bibliography](#21)
 
 ### Contact information {-}
 

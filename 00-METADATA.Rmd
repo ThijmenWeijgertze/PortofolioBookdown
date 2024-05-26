@@ -19,9 +19,12 @@ Website link: [thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/](https:/
 -   fs
 -   tidyverse
 -   RColorBrewer
+-   ranger
 -   readxl
 -   ggfortify
 -   tableone
+-   broom.mixed
+-   dotwhisker (dependencies: leeper/prediction & leeper/margins)
 -   twPackage (devtools::install_github("ThijmenWeijgertze/twPackage", build_vignettes = TRUE))
 
 Installing dependency packages (if it doesn't download automatically please install the packages by hand):
@@ -36,14 +39,36 @@ for (package in c("devtools", "tidyverse", "tidymodels", "bookdown", "reactable"
   }
 }
 
-
 # install twPackage from github
 if (!require("twPackage", character.only = TRUE)) {
   devtools::install_github("ThijmenWeijgertze/twPackage", build_vignettes = TRUE)
   library(package, character.only = TRUE)
 }
-```
 
+# prediction dependency for dotwhisker
+if (!require("prediction", character.only = TRUE)) {
+    remotes::install_github("leeper/prediction")
+    library("prediction", character.only = TRUE)
+  } else {
+    library("prediction", character.only = TRUE)
+  }
+
+# margins dependency for dotwhisker
+if (!require("margins", character.only = TRUE)) {
+    remotes::install_github("leeper/margins")
+    library("margins", character.only = TRUE)
+  } else {
+    library("margins", character.only = TRUE)
+  }
+
+# Dotwhisker itself
+if (!require("dotwhisker", character.only = TRUE)) {
+    remotes::install_github("fsolt/dotwhisker")
+    library("dotwhisker", character.only = TRUE)
+  } else {
+    library("dotwhisker", character.only = TRUE)
+  }
+```
 
 ### Directory roadmap {-}
 

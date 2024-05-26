@@ -1,12 +1,4 @@
-# Machine Learning {#05}
-
-```{r setup4, echo=FALSE}
-# setting up general settings for chunks
-knitr::opts_chunk$set(
-  warning=FALSE,
-  message=FALSE
-)
-```
+# Learning random forests models (using tidymodels) {#05}
 
 ### Introduction
 
@@ -60,6 +52,7 @@ Week 2:
 
 ```{r loading in data}
 library(gt)
+library(reactable)
 
 # loading in data
 bcData <- read.csv( 
@@ -80,3 +73,229 @@ reactable(
   defaultPageSize = 5
   )
 ```
+
+### Data Wrangling
+
+```{r}
+str(bcData)
+```
+
+<!-- degree of malignancy is deg-malig -->
+
+The breast cancer dataset had `r ncol(bcData)` columns and `r nrow(bcData)` rows. The next step was correcting the variable types to factors and renaming non-recurrence-events to NRE and recurrence events to RE.
+
+```{r}
+bcData$class <- factor(bcData$class, levels = unique(bcData$class))
+bcData$age <- factor(bcData$age, levels = unique(bcData$age))
+bcData$menopause <- factor(bcData$menopause, levels = unique(bcData$menopause))
+bcData$tumor_size <- factor(bcData$tumor_size, levels = unique(bcData$tumor_size))
+bcData$inv_nodes <- factor(bcData$inv_nodes, levels = unique(bcData$inv_nodes))
+bcData$node_caps <- factor(bcData$node_caps, levels = unique(bcData$node_caps))
+bcData$deg_malig <- factor(bcData$deg_malig, levels = unique(bcData$deg_malig))
+bcData$breast <- factor(bcData$breast, levels = unique(bcData$breast))
+bcData$breast_quad <- factor(bcData$breast_quad, levels = unique(bcData$breast_quad))
+bcData$irradiat <- factor(bcData$irradiat, levels = unique(bcData$irradiat))
+
+bcData$class <- factor(bcData$class, levels = c("no-recurrence-events", "recurrence-events"), labels = c("NRE", "RE"))
+
+str(bcData)
+```
+
+### Splitting the data
+
+After checking the variables the data must be split into a training set and a test set. The test set must be different from the training set to avoid the model from overfitting. Overfitting means that the machine learning model is too well trained on memorizing its own training data that it can not accurately predict data outside of its training data. There are many ways to prevent overfitting. Examples are early stopping, feature selecting by excluding irralevent columns from the dataset, using more data to train on, data augmentation by adding noisy data within the dataset, Regularization by giving a penalty to parameters with large coefficients, ensamble methods by creating random samples in the training set to train them individually. This however comes with its own downside as this might cause underfitting. Underfitting is a term used when the model is not trained well enough on the training data to make accurate predictions outside of the training data.  https://www.ibm.com/topics/overfitting
+
+```{r}
+library(tidymodels)
+set.seed(2024)
+bcData_split <- initial_split(bcData, prop = 0.7, strata = class)
+```
+
+The data gets split randomly so for the sake of reproducibility a seed is set. The function initial_split takes in the breast cancer dataset. Prop is used to specify the data to be split into 70% training data and 30% test data. Strata ensures that even though the data is split randomly both the training and test set will have the roughly the same percentage of no recurrence events and recurrence events.
+
+```{r}
+bcData_train <- training(bcData_split)
+bcData_test  <- testing(bcData_split)
+```
+
+Using the training and testing functions both the training and test set are stored in variables. 
+
+```{r}
+# checking the split
+nrow(bcData_train)/nrow(bcData)
+
+# checking the equal proportions created by strata
+bcData_train %>% 
+  count(class) %>% 
+  mutate(prop = n/sum(n))
+
+# checking the equal proportions created by strata
+bcData_test %>% 
+  count(class) %>% 
+  mutate(prop = n/sum(n))
+```
+
+Above results shows that as expected the dataset is split 70% to 30% and the strata function has made sure the proportions of no recurrence events and recurrence events are nearly equal in both the training and test set.
+
+### Creating a random forest model
+
+```{r}
+show_engines("rand_forest")
+```
+
+There are a lot of engines to use for machine learning with tidymodels. A list of engines can be found [here](https://www.tidymodels.org/find/parsnip/). In this case a random forest engine called ranger is chosen. Random forest algorithms try to narrow the data by asking questions about features such as is the age 15-19 or combine different features like age and degree of malignancy. These questions create a decision tree. Multiple decision trees combined makes up a forest. The questions get more specific the further in the decision tree you get. The questions itself are chosen based on the patterns in the dataset. The trained model then uses these same questions on new data sets such as the test set to predict in this case if its a no recurrence event or recurrence event. 
+
+An ensemble technique called bagging (aka bootstrap aggregating) is often used to reduce variance in a dataset. The random forest algorithm uses this technique to improve its accuracy. The way bagging works is it makes multiple sample sets out of the training data. These sample sets can use the same values. Each sample is then trained independently and the results are combined to make a final more accurate prediction based on the averages of the trained samples. 
+
+The random forest algorithm takes in three main hyperparameters: node size, number of trees and features sampled. If the number of values after a split in a tree drops below the node size then the tree will not split anymore. The number of trees specifies how many decision trees are combined to create the forest. The features sampled specifies which features (like age and degree of malignancy) will be taken into account for training the model.
+
+
+https://www.ibm.com/topics/random-forest
+
+https://stats.stackexchange.com/questions/158583/what-does-node-size-refer-to-in-the-random-forest
+
+```{r}
+# show available cores
+cores <- parallel::detectCores()
+cores
+
+# train the model
+bcData_rf_ranger_mod <- rand_forest(
+  mode = "classification", # the type of analysis: classification, regression, etc
+  mtry = tune(), # amount of features per decision tree
+  trees = 2000, # number of trees
+  min_n = tune(), # minimal node size
+) %>% 
+  set_engine("ranger", num.threads = cores - 1) 
+# using the ranger engine
+# using all available cores except 1 
+# so that other smaller processes on the computer still run
+```
+
+The random forest model is created using the rand_forest function. The mode is set to classification because the result is either a recurrence event or non recurrence event (another mode could be regression for example, which depends on the dataset). The mtry is set to 3 which means per decision tree the number of features will be limited to a maximum of 3. The trees are set to 1000 so 1000 decision trees will be created to form the forest. The minimal node size and the amount of features are set to tune() (will be explained later on when tuning and training the model). The engine chosen is ranger.
+
+### Resampling the random forest model
+
+```{r}
+knitr::include_graphics(here::here(
+  "data",
+  "resampling.png"
+))
+```
+
+Resampling will be used for evaluation of models. The data itself is split by using initial split. The training data is then split again into analysis and assesment groups. There are more ways to evaluate a model like cross-validation or bootstrapping. In this case cross-validation will be used. Cross-validation divides the training data in folds of around equal size. The first fold is the assesment fold and all other folds are analysis folds. While training each independent fold will be evaluated with the first assessment fold to predict its performance.
+
+```{r}
+set.seed(111)
+folds <- vfold_cv(bcData_train, v = 10) 
+folds
+```
+
+The vfold_cv function is used to create 10 folds. Again a seed is set for reproducibility.
+
+### Tuning and training using the ranger engine
+
+The random forest algorithm must know which features to use to predict the class. To tell the algorithm this a recipe must be made.
+
+```{r}
+bcData_rf_rec <- recipe(class ~ ., data = bcData_train) %>% 
+  step_zv(all_predictors())
+```
+
+The recipe contains a formula describing the to be predicted feature and the features to use for the prediction. In this case class is the feature to predict and all other features (indicated by the dot after the tilde) are used to predict the class. step_zv() is used to remove features in the training set that only show the same value (for example if all rows had age 15-19). These features are not useful and could only cause overfitting. With regression data "step_dummy()" must be used to convert categorical data to numerical data by making it like binary.
+
+```{r}
+# combining model and recipe into a workflow
+bcData_rf_workflow <- workflow() %>% 
+  add_model(bcData_rf_ranger_mod) %>% 
+  add_recipe(bcData_rf_rec) 
+```
+
+A workflow is created to combine the model with the recipe.
+
+```{r}
+set.seed(777)
+
+# tune the model
+bcData_lr_res <- 
+  bcData_rf_workflow %>% 
+  tune_grid(resamples = folds,
+            grid = 50,
+            control = control_grid(save_pred = TRUE),
+            metrics = metric_set(roc_auc, accuracy))
+bcData_lr_res
+```
+
+```{r}
+autoplot(bcData_lr_res)
+```
+
+```{r}
+bcData_lr_res %>%
+  collect_metrics() %>%
+  mutate(mtry = factor(mtry)) %>%
+  ggplot(aes(min_n, mean, color = mtry)) +
+  geom_line(size = 1.5, alpha = 0.6) +
+  geom_point(size = 2) +
+  facet_wrap(~ .metric, scales = "free", nrow = 2) +
+  scale_x_log10(labels = scales::label_number()) +
+  scale_color_viridis_d(option = "plasma", begin = .9, end = 0)
+#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+#> ℹ Please use `linewidth` instead.
+```
+
+```{r}
+bcData_lr_res %>%
+  show_best(metric = "accuracy")
+```
+
+```{r}
+bcData_best_tree <- bcData_lr_res %>%
+  select_best(metric = "accuracy")
+bcData_best_tree
+```
+
+```{r}
+# using the best performing model
+bcData_final_workflow <- 
+  bcData_rf_workflow %>% 
+  finalize_workflow(bcData_best_tree)
+
+# fit
+bcData_final_fit <- 
+  bcData_final_workflow %>%
+  last_fit(bcData_split) 
+```
+
+```{r}
+# metrics
+bcData_final_fit %>%
+  collect_metrics()
+
+# predictions
+bcData_final_fit %>%
+  collect_predictions() %>% 
+  roc_curve(class, .pred_0) %>% 
+  autoplot()
+```
+
+
+
+```{r}
+# fitting/ training model
+library(ranger)
+set.seed(222)
+bcData_rf_fit_rs <- 
+  bcData_rf_workflow %>% 
+  fit_resamples(folds)
+```
+https://www.tidymodels.org/learn/models/conformal-regression/
+
+```{r}
+extract_parameter_set_dials(bcData_rf_mod)
+```
+
+```{r}
+
+```
+
