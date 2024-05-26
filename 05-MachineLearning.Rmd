@@ -85,6 +85,7 @@ str(bcData)
 The breast cancer dataset had `r ncol(bcData)` columns and `r nrow(bcData)` rows. The next step was correcting the variable types to factors and renaming non-recurrence-events to NRE and recurrence events to RE.
 
 ```{r}
+# changing type to factor
 bcData$class <- factor(bcData$class, levels = unique(bcData$class))
 bcData$age <- factor(bcData$age, levels = unique(bcData$age))
 bcData$menopause <- factor(bcData$menopause, levels = unique(bcData$menopause))
@@ -96,8 +97,10 @@ bcData$breast <- factor(bcData$breast, levels = unique(bcData$breast))
 bcData$breast_quad <- factor(bcData$breast_quad, levels = unique(bcData$breast_quad))
 bcData$irradiat <- factor(bcData$irradiat, levels = unique(bcData$irradiat))
 
+# renaming values in class column
 bcData$class <- factor(bcData$class, levels = c("no-recurrence-events", "recurrence-events"), labels = c("NRE", "RE"))
 
+# using str to inspect the changed variables
 str(bcData)
 ```
 
@@ -275,7 +278,7 @@ bcData_final_fit %>%
 # predictions
 bcData_final_fit %>%
   collect_predictions() %>% 
-  roc_curve(class, .pred_0) %>% 
+  roc_curve(class, .pred_RE) %>% 
   autoplot()
 ```
 
