@@ -32,6 +32,39 @@
   file = {C:\Users\tweij\Zotero\storage\J53FP7ZM\trim_galore.html}
 }
 
+@misc{bobbittHowSortData2021,
+  title = {How to {{Sort}} a {{Data Frame}} by {{Column}} in {{R}} ({{With Examples}})},
+  author = {Bobbitt, Zach},
+  year = {2021},
+  month = jan,
+  journal = {Statology},
+  urldate = {2024-05-26},
+  abstract = {This tutorial explains how to sort a data frame by one or more columns in R, including several examples.},
+  langid = {american},
+  file = {C:\Users\tweij\Zotero\storage\ULSVSM54\sort-dataframe-by-column-in-r.html}
+}
+
+@misc{datacampTutorialLimitationsLinear2020,
+  title = {R {{Tutorial}} : {{Limitations}} of Linear Models},
+  shorttitle = {R {{Tutorial}}},
+  author = {{DataCamp}},
+  year = {2020},
+  month = apr,
+  urldate = {2024-05-26},
+  abstract = {Want to learn more? Take the full course at https://learn.datacamp.com/courses/ge... at your own pace. More than a video, you'll learn hands-on coding \& quickly apply skills to your daily work. --- Hello, I'm Richard Erickson. I'm a data scientist. Welcome to this DataCamp course on generalized linear models in R. During this course, you'll expand your regression toolbox by learning about generalized linear models or GLMs for short. In chapter 1, you'll see a review of linear models, learn about their limitations, and see how GLMs overcome some of these limitations. You'll also learn about Poisson regression, a type of GLM. In chapter 2, you'll learn how to run binomial regressions. In chapter 3, you'll learn about interpreting and plotting GLMs. In Chapter 4, you'll learn how to do multiple regression with GLMs. Now, let's see how GLMs compare to other models you likely know. Linear models are a workhorse in data science and include common tools such as linear regression, ANOVAs, and t-tests. They are used for everything from sports-analytics to chemistry. Personally, I use them daily to analyze data. LMs seek to explain variability by estimating coefficients for predictor variables. Intercepts model "average" or baseline effects of predictors. Slopes model changes caused by continuous predictors. The equation to predict y has an intercept beta-not, slope beta1, x, and error epsilon. You can fit linear models in R with the lm() function. Notice how linear models take the formula as the 1st input and data as the second. The tilde may be read as "predicted by", for example, y is predicted by x. Linear models have important assumptions. By definition, the model examines linear relationships, such as the top example plot. Additionally, linear models assume residuals are normally distributed, such as the right plot. Furthermore, linear models work best with continuous repose variables, such as the data on the left. However, in real life, many datasets do not meet these assumptions. The ChickWeight dataset works well with linear models. The dataset compares the weights of chicks fed four diets through time. I've grabbed the last observed weights and plotted the chick weights at the end of the study. In the next slide, you'll see how to fit a linear model to this data. The datasets package contains the ChickWeights dataset. I've saved the last observations as ChickWeightEnd. We will see if the diet explains weight. Specifically, a linear model can examine if the 2nd, 3rd, and 4th diets differ from the 1st diet. Using the linear model function, we use the formula "Weight is predicted by diet" with our ChickWeightEnd data. This model estimates a global intercept (Intercept), which corresponds to the average weight of a chick receiving the 1st diet, as well as the differences for the other diets.  In this case,diets 2, 3, and 4 had chicks with higher weights than diet 1 by the amounts shown on the screen. However, what about other end points? For example, what if we have survival or count data? Survival is binary and counts are discrete. Neither of these are continuous, hence linear models are not a good choice! We need a new tool: The generalized linear model! Linear models can be extended or generalized to become generalized linear models or "GLMs" for short. Specifically, GLMs can have non-normal errors or distributions, although there are limitations to the possible distributions. For example, we can use a Poisson family for count data, which we will see later in this chapter. Or, we can use a binomial family for binary data such as survival data, which we will see in chapter 2. GLMs also have non-linear link functions, which links the regression coefficients to the distribution and allows the linear model to be generalize. We will explore link functions in chapter 2. GLMs are fit with the function glm(). Like lm()s, glm()s have formulas and data as inputs, but also have a family input. The Gaussian family is how R refers to the normal distribution and is the default for a glm(). Also, if the family is gaussian, then a glm() is the same as a lm(). Now that you've seen a little bit about GLMs, let's use them with some data! \#DataCamp \#RTutorial \#GeneralizedLinearModelsinR}
+}
+
+@misc{DataDailyNumber2022,
+  title = {Data on the Daily Number of New Reported {{COVID-19}} Cases and Deaths by {{EU}}/{{EEA}} Country},
+  year = {2022},
+  month = oct,
+  urldate = {2024-05-26},
+  abstract = {Data in various file formats with the number of new COVID-19 cases and deaths reported per day and per country in the EU/EEA.},
+  howpublished = {https://www.ecdc.europa.eu/en/publications-data/data-daily-new-cases-covid-19-eueea-country},
+  langid = {english},
+  file = {C:\Users\tweij\Zotero\storage\AEJNXAB7\data-daily-new-cases-covid-19-eueea-country.html}
+}
+
 @misc{eeeeedAnswerSimplerPopulation2019,
   title = {Answer to "{{Simpler}} Population Pyramid in Ggplot2"},
   author = {Eeeeed},
@@ -82,6 +115,23 @@
   file = {C:\Users\tweij\Zotero\storage\WXXVMPUI\9781098134938.html}
 }
 
+@misc{louterCELIQFLOW,
+  title = {{{CE}}.{{LIQ}}.{{FLOW}}.062\_{{Tidydata}}.Xlsx},
+  author = {Louter, J},
+  urldate = {2024-05-26},
+  howpublished = {https://view.officeapps.live.com/op/view.aspx?src=https\%3A\%2F\%2Fraw.githubusercontent.com\%2FDataScienceILC\%2Ftlsc-dsfb26v-20\_workflows\%2Fmain\%2Fdata\%2FCE.LIQ.FLOW.062\_Tidydata.xlsx\&wdOrigin=BROWSELINK},
+  file = {C:\Users\tweij\Zotero\storage\6UB6CXBS\view.html}
+}
+
+@misc{matjazzwitterBreastCancer1988,
+  title = {Breast {{Cancer}}},
+  author = {Matjaz Zwitter, Milan Soklic},
+  year = {1988},
+  publisher = {UCI Machine Learning Repository},
+  doi = {10.24432/C51P4M},
+  urldate = {2024-05-25}
+}
+
 @misc{oropeza-valdezExploringMetabolicAnomalies2024,
   title = {Exploring {{Metabolic Anomalies}} in {{COVID-19}} and {{Post-COVID-19}}: {{A Machine Learning Approach}} with {{Explainable Artificial Intelligence}}},
   shorttitle = {Exploring {{Metabolic Anomalies}} in {{COVID-19}} and {{Post-COVID-19}}},
@@ -120,6 +170,30 @@
   file = {C:\Users\tweij\Zotero\storage\NPE6PQR5\Paganini et al. - 2024 - PlasmidEC and gplas2 an optimized short-read appr.pdf}
 }
 
+@article{palayewCOVID19VaccinePaper2020,
+  title = {{{COVID-19 Vaccine}} Paper},
+  author = {Palayew, Adam},
+  year = {2020},
+  month = aug,
+  publisher = {OSF},
+  urldate = {2024-05-26},
+  abstract = {Hosted on the Open Science Framework},
+  langid = {english},
+  file = {C:\Users\tweij\Zotero\storage\TXRBJV5J\kzq69.html}
+}
+
+@misc{raschkaShortTutorialDecent0000,
+  title = {A Short Tutorial for Decent Heat Maps in {{R}}},
+  author = {Raschka, Sebastian},
+  year = {09:00:00 +0000},
+  journal = {Sebastian Raschka, PhD},
+  urldate = {2024-05-26},
+  abstract = {I received many questions from people who want to quickly visualize their data via heat maps - ideally as quickly as possible. This is the major issue of exp...},
+  howpublished = {https://sebastianraschka.com/Articles/heatmaps\_in\_r.html},
+  langid = {english},
+  file = {C:\Users\tweij\Zotero\storage\EWMBRW66\heatmaps_in_r.html}
+}
+
 @misc{seemannTseemannAbricate2024,
   title = {Tseemann/Abricate},
   author = {Seemann, Torsten},
@@ -129,6 +203,17 @@
   abstract = {:mag\_right: :pill: Mass screening of contigs for antimicrobial and virulence genes},
   copyright = {GPL-2.0},
   keywords = {antimicrobial-resistance-genes,bioinformatics-tool,contigs,genomic-regions,virulence-genes}
+}
+
+@misc{simoneAnswerWhatDoes2015,
+  title = {Answer to "{{What}} Does "Node Size" Refer to in the {{Random Forest}}?"},
+  shorttitle = {Answer to "{{What}} Does "Node Size" Refer to in the {{Random Forest}}?},
+  author = {Simone},
+  year = {2015},
+  month = jun,
+  journal = {Cross Validated},
+  urldate = {2024-05-25},
+  file = {C:\Users\tweij\Zotero\storage\UCBJTXHS\what-does-node-size-refer-to-in-the-random-forest.html}
 }
 
 @misc{sumnerReproducibilityReportingPractices2020,
@@ -147,11 +232,53 @@
   file = {C:\Users\tweij\Zotero\storage\FZC5VE74\Sumner et al. - 2020 - Reproducibility and reporting practices in COVID-1.pdf}
 }
 
+@misc{TidymodelsWelcome,
+  title = {Tidymodels - {{Welcome}}!},
+  urldate = {2024-05-26},
+  howpublished = {https://www.tidymodels.org/start/},
+  file = {C:\Users\tweij\Zotero\storage\V6NRFLH3\start.html}
+}
+
+@misc{tomasDropTRUEDoesn2014,
+  type = {Forum Post},
+  title = {Drop = {{TRUE}} Doesn't Drop Factor Levels in Data.Frame While in Vector It Does},
+  author = {Tomas},
+  year = {2014},
+  month = jun,
+  journal = {Stack Overflow},
+  urldate = {2024-05-26},
+  file = {C:\Users\tweij\Zotero\storage\7MSTE8JW\drop-true-doesnt-drop-factor-levels-in-data-frame-while-in-vector-it-does.html}
+}
+
 @misc{Top50Ggplot2,
   title = {Top 50 Ggplot2 {{Visualizations}} - {{The Master List}} ({{With Full R Code}})},
   urldate = {2024-05-12},
   howpublished = {https://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html},
   file = {C:\Users\tweij\Zotero\storage\ZGDV3WGP\Top50-Ggplot2-Visualizations-MasterList-R-Code.html}
+}
+
+@misc{WhatOverfittingIBM2021,
+  title = {What Is {{Overfitting}}? {\textbar} {{IBM}}},
+  shorttitle = {What Is {{Overfitting}}?},
+  year = {2021},
+  month = oct,
+  urldate = {2024-05-25},
+  abstract = {Overfitting occurs when an algorithm fits too closely to its training data, resulting in a model that can't make accurate predictions or conclusions.},
+  howpublished = {https://www.ibm.com/topics/overfitting},
+  langid = {american},
+  file = {C:\Users\tweij\Zotero\storage\6H4C5XS8\overfitting.html}
+}
+
+@misc{WhatRandomForest2021,
+  title = {What {{Is Random Forest}}? {\textbar} {{IBM}}},
+  shorttitle = {What {{Is Random Forest}}?},
+  year = {2021},
+  month = oct,
+  urldate = {2024-05-25},
+  abstract = {Random forest is a commonly-used machine learning algorithm that combines the output of multiple decision trees to reach a single result.},
+  howpublished = {https://www.ibm.com/topics/random-forest},
+  langid = {american},
+  file = {C:\Users\tweij\Zotero\storage\QY4NYGG7\random-forest.html}
 }
 
 @article{wickUnicyclerResolvingBacterial2017a,

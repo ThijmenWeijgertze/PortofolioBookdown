@@ -42,11 +42,11 @@ Code Availability | Authors have shared access to the most updated code that the
 
 <p class="justify">The article scores positive in almost all aspects expects except the ethics statement and Author Review. The author scored tier 3 on the Author Review which states "Author used institutional email address as primary contact". An ORCID ID has not been found which is required for Tier 4. The first time reviewing this article on April 17th 2024 the github page did not work yet and it scored negative on code availibility. This has recently been fixed as the github link now works. Thereby the article scores rather high on the open peer review. The article only misses an ethics statement and ORCID ID. Last updated on the 26th of May 2024.</p>
 
-### Reproducing R code
+### Reproducing R code @palayewCOVID19VaccinePaper2020
 
 Since the article above has written its code mainly in jupyter notebook using Google Collaboration. There has been decided to search another source for the reproducing R code section. The article chosen is [COVID-19 Vaccine paper](https://osf.io/kzq69/) from the OSFHOME database. The code is reproduced in the [Appendix 1: COVID-19 Vaccine paper "Open Peer Review"](#20) section to make this chapter better readable. 
 
-```{r echo=TRUE}
+```{r caseperm screenshot}
 # Load example image
 knitr::include_graphics(here::here(
   "data",
@@ -58,7 +58,7 @@ While reproducing the code a few issues were found. The code in the picture abov
 
 The paper starts off with loading the data and changing variable types to factors. The paper then asks two questions about vaccines to a group of people across different countries. The first question is as follows: "I would follow my employer’s recommendation to get a COVID-19 vaccine once the government has approved it as safe and effective". 1179 people completely disagreed, 2299 people somewhat agreed, 3488 people were neutral or had no opinion, 4579 people somewhat agreed and 1881 people completely agreed. The data then got visualized using ggplot per category. This included gender, age, income, education and country. At last gender, age, income, education were visualized per country. See example screenshots below (or see the appendix). The country category however was the only one that had no title connected to its plot.
 
-```{r echo=TRUE}
+```{r education screenshot}
 # Load example image
 knitr::include_graphics(here::here(
   "data",
@@ -66,7 +66,7 @@ knitr::include_graphics(here::here(
 ))
 ```
 
-```{r echo=TRUE}
+```{r age screenshot}
 # Load example image
 knitr::include_graphics(here::here(
   "data",
@@ -76,18 +76,16 @@ knitr::include_graphics(here::here(
 
 The second question asked the next question: "If a COVID-19 vaccine is proven safe and effective and is available to me, I will take it". 1091 people completely disagreed, 819 people somewhat agreed, 1912 people were neutral or had no opinion, 3318 people somewhat agreed and 6286 people completely agreed. The data got visualized in the same way as the first question. The country category again had no title. 
 
-The paper then moves on to calculating regression using "Generalized Linear Models" (GLM) The GLM principle is based on the concept of linear models (calculating y with x) which can be computed using the lm() function. Lineair models however cannot handle things like binary types (example: yes/no) or counts, because they're not continuous. GLM's on the other hand are similar to linear models, but are able to compute other distributions then the normal distribution like poisson and binomial distributions. Furthermore they're compatible with link functions. In this paper GLM is used because the data consists of count data and has a binomial distribution. Therefore is not compatible with a normal lineair model. Before the paper computes the GLM an if else statement is used to differentiate between positive and negative reaction to the questions. The glm() function within the paper is then used to compute the earlier explained GLM regression for a number of factors after which the coëfficients and confidence intervals per category are binded together. 
+The paper then moves on to calculating regression using "Generalized Linear Models" (GLM) The GLM principle is based on the concept of linear models (calculating y with x) which can be computed using the lm() function. Lineair models however cannot handle things like binary types (example: yes/no) or counts, because they're not continuous. GLM's on the other hand are similar to linear models, but are able to compute other distributions then the normal distribution like poisson and binomial distributions. Furthermore they're compatible with link functions. In this paper GLM is used because the data consists of count data and has a binomial distribution. Therefore is not compatible with a normal lineair model. Before the paper computes the GLM an if else statement is used to differentiate between positive and negative reaction to the questions. The glm() function within the paper is then used to compute the earlier explained GLM regression for a number of factors after which the coëfficients and confidence intervals per category are binded together. @datacampTutorialLimitationsLinear2020
 
 At last a table with the percentage of all categories per country is printed out in a cat table format (like what percentage of people responded positive or what percentage was between the age of 18-24 in Brazil). The percentage of people which responded positive is also visualized using ggplot in a supplemental figure. See the screenshot below (or see the apendix). Again without a title.
 
-```{r echo=TRUE}
+```{r supplementary screenshot}
 knitr::include_graphics(here::here(
   "data",
   "supplementary.png"
 ))
 ```
-
-https://www.youtube.com/watch?v=hKpMXZrRgLg&t=246s
 
 ### Conclusion on COVID-19 vaccin paper
 

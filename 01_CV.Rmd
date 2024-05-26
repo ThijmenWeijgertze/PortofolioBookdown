@@ -6,7 +6,7 @@
 
 ### My education
 
-```{r, echo=FALSE}
+```{r CV education, echo=FALSE}
 library(reactable)
 library(tibble)
 tibble(Degree=c("Havo (N&T and N&G)","Life Science"), 
@@ -68,6 +68,10 @@ tibble(Degree=c("Havo (N&T and N&G)","Life Science"),
   - **RNA/DNA isolation**
   
       I'm capable of isolating RNA/DNA (including creating a cDNA bank)
+  
+  - **Random Forest Algorithms using tidymodels**
+  
+      I'm capable of using Random Forests algorythms from tidymodels to solve classification problems
       
   - **RNA-seq**
       

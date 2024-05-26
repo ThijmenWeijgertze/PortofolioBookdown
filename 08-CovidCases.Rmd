@@ -1,12 +1,14 @@
 # Analyzing Covid-19 data using parameters {#08}
 
+Data source: @DataDailyNumber2022
+
 ### Selected parameters
 
 covidData parameter: `r paste(params$covidData)`  
 covidYear parameter: `r paste(params$covidYear)`  
 covidMonth parameter: `r paste(params$covidMonth)`  
 
-### Psuedocode
+### Psuedocode pyramid plot
 
 Pseudocode pyramid plot
 
@@ -20,7 +22,7 @@ Pseudocode pyramid plot
 
 ### Data reading
 
-```{r}
+```{r read the covid cases data}
 # reading covidData parameter
 covidData <- read.csv(params$covidData)
 
@@ -33,7 +35,7 @@ covidDataFil %>% reactable::reactable(defaultPageSize = 5, compact = TRUE, filte
 
 ### prepare the data for the pyramid plot
 
-```{r}
+```{r prepare the data for the pyramid plot}
 # make geoId a factor
 covidDataFil$geoId <- factor(covidDataFil$geoId, levels = unique(covidDataFil$geoId))
 
@@ -98,15 +100,25 @@ covidDataJoined %>%
   scale_color_brewer(palette = "Dark2") # colorblind friendly color scale
 ```
 
+Pseudocode heatmap plot @raschkaShortTutorialDecent0000
+
+- devide the cases and deaths by the population data of 2020 to normalize the data
+- sort the columns by day number @bobbittHowSortData2021
+- use pivor wider to give every day a column in preparation for the heatmap
+- store the names of the countries and territories @tomasDropTRUEDoesn2014
+- convert all day columns to numeric
+- convert type to matrix and assign it the stored names
+- plot the heatmap
+
 ### Preparing the data for the heatmap
 
-Cases:
+Cases @raschkaShortTutorialDecent0000:
 
-```{r}
+```{r prepare cases data for the heatmap}
 # matrix preparation for cases
 covidDataMatrixCases <- covidDataFil %>% mutate(Normalized = cases/popData2020) %>%  dplyr::select(countriesAndTerritories, day, Normalized) 
 
-# https://www.statology.org/sort-dataframe-by-column-in-r/
+# sort dataframe so that the days are ordered from 1 to 30 or 31
 covidDataMatrixCases <- covidDataMatrixCases[order(covidDataMatrixCases$day), ]
 
 # column per day
@@ -114,8 +126,7 @@ covidDataMatrixCases <- covidDataMatrixCases %>% pivot_wider(names_from = day, v
 
 # store the names because the matrix only wants one type (numerical, string, etc..)
 # drop=TRUE simplifies the values to store it only as a vector and not as a column of a dataframe
-# https://sebastianraschka.com/Articles/heatmaps_in_r.html
-# https://stackoverflow.com/questions/14123792/drop-true-doesnt-drop-factor-levels-in-data-frame-while-in-vector-it-does
+
 rnames <- covidDataMatrixCases[,1, drop=TRUE]
 
 # convert all columns except the first to numeric
@@ -125,9 +136,9 @@ covidDataMatrixCases <- data.matrix(covidDataMatrixCases[,2:ncol(covidDataMatrix
 rownames(covidDataMatrixCases) <- rnames
 ```
 
-Deaths:
+Deaths @raschkaShortTutorialDecent0000:
 
-```{r}
+```{r prepare deaths data for the heatmap}
 # matrix preparation for cases
 covidDataMatrixDeaths <- covidDataFil %>% mutate(Normalized = deaths/popData2020) %>%  dplyr::select(countriesAndTerritories, day, Normalized) 
 
@@ -139,8 +150,7 @@ covidDataMatrixDeaths <- covidDataMatrixDeaths %>% pivot_wider(names_from = day,
 
 # store the names because the matrix only wants one type (numerical, string, etc..)
 # drop=TRUE simplifies the values to store it only as a vector and not as a column of a dataframe
-# https://sebastianraschka.com/Articles/heatmaps_in_r.html
-# https://stackoverflow.com/questions/14123792/drop-true-doesnt-drop-factor-levels-in-data-frame-while-in-vector-it-does
+
 rnames <- covidDataMatrixDeaths[,1, drop=TRUE]
 
 # convert all columns except the first to numeric
@@ -150,10 +160,10 @@ covidDataMatrixDeaths <- data.matrix(covidDataMatrixDeaths[,2:ncol(covidDataMatr
 rownames(covidDataMatrixDeaths) <- rnames
 ```
 
-### Heatmap
+### Heatmap @raschkaShortTutorialDecent0000
 
-```{r heatmap, fig.width=10}
-# heatmap plot
+```{r plot the cases heatmap, fig.width=10}
+# heatmap plot cases
 heatmap(
   covidDataMatrixCases, # data
   Rowv=NA, Colv=NA, # no clustering
@@ -163,7 +173,10 @@ heatmap(
   xlab = "Day", # x-axis name
   ylab = "Country or Territory" # y-axis name
   )
+```
 
+```{r plot the deaths heatmap, fig.width=10}
+# heatmap plot deaths
 heatmap(
   covidDataMatrixDeaths, # data
   Rowv=NA, Colv=NA, # no clustering

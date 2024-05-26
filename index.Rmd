@@ -54,11 +54,11 @@ knitr::opts_chunk$set(
 - [Guerrilla Analytics](#02)
 - [C. Elegans plate experiment](#03)
 - [Open Peer Review](#04)
-- [Machine Learning](#05)
+- [Predicting breast cancer recurrence events using random forests](#05)
 - [Rpackage (twPackage)](#06)
 - [Antimicrobial resistance project](#07)
 - [Analyzing Covid-19 data using parameters](#08)
-- [Appendices](#20)
+- [Appendix 1: COVID-19 Vaccine paper](#20)
 - [Bibliography](#21)
 
 ### Contact information {-}

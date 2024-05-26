@@ -6,7 +6,18 @@ Bookdown source code: [PortofolioBookdown](https://github.com/ThijmenWeijgertze/
 
 Website source code: [ThijmenWeijgertze-portofolio](https://github.com/ThijmenWeijgertze/ThijmenWeijgertze-portfolio)
 
+twPackage source code: [twPackage](https://github.com/ThijmenWeijgertze/twPackage)
+
 Website link: [thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/](https://thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/)
+
+### How to build the book localy {-}
+
+- Download the bookdown package
+- Download the bookdown source code
+- Open the Rproject file
+- Press the build book button
+- If there is no build book button use: `bookdown::render_book(".")`
+- If something goes wrong with downloading the dependencies automaticly try to install the dependencies manually
 
 ### Dependency packages {-}
 
@@ -23,15 +34,17 @@ Website link: [thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/](https:/
 -   readxl
 -   ggfortify
 -   tableone
+-   randomForest
 -   broom.mixed
 -   rpart.plot
 -   vip
+-   MASS
 -   twPackage (devtools::install_github("ThijmenWeijgertze/twPackage", build_vignettes = TRUE))
 
-Installing dependency packages (if it doesn't download automatically please install the packages by hand):
-```{r dependency packages}
+Installing dependency packages (if it doesn't download automatically please install the dependencies by hand):
+```{r downloading and loading dependency packages}
 # if not installed: installing dependency packages from cran
-for (package in c("devtools", "tidyverse", "tidymodels", "bookdown", "reactable", "gt", "fs", "RColorBrewer", "readxl", "ggfortify")) {
+for (package in c("devtools", "tidyverse", "tidymodels", "bookdown", "reactable", "gt", "fs", "tidyverse", "RColorBrewer", "ranger", "readxl", "ggfortify", "tableone", "randomForest", "broom.mixed", "rpart.plot", "vip", "MASS")) {
   if (!require(package, character.only = TRUE)) {
     install.packages(package, dependencies = TRUE)
     library(package, character.only = TRUE)
@@ -45,30 +58,6 @@ if (!require("twPackage", character.only = TRUE)) {
   devtools::install_github("ThijmenWeijgertze/twPackage", build_vignettes = TRUE)
   library(package, character.only = TRUE)
 }
-
-# prediction dependency for dotwhisker
-if (!require("prediction", character.only = TRUE)) {
-    remotes::install_github("leeper/prediction")
-    library("prediction", character.only = TRUE)
-  } else {
-    library("prediction", character.only = TRUE)
-  }
-
-# margins dependency for dotwhisker
-if (!require("margins", character.only = TRUE)) {
-    remotes::install_github("leeper/margins")
-    library("margins", character.only = TRUE)
-  } else {
-    library("margins", character.only = TRUE)
-  }
-
-# Dotwhisker itself
-if (!require("dotwhisker", character.only = TRUE)) {
-    remotes::install_github("fsolt/dotwhisker")
-    library("dotwhisker", character.only = TRUE)
-  } else {
-    library("dotwhisker", character.only = TRUE)
-  }
 ```
 
 ### Directory roadmap {-}
@@ -82,10 +71,53 @@ library(tidyverse)
 dir_tree(".", recurse = TRUE, regexp = "^.gitignore$|^[^_|(.git)]", all = TRUE)
 ```
 
+### Project directory folder
+
+- .gitignore: file to withold files from being pushed to github
+- 00-METADATA.Rmd: contains the metadata of the project
+- 01_CV.Rmd: contains the CV
+- 02-GuerillaAnalytics.Rmd: contains the folder structure of this project and an older project to show of guerilla analytics principles
+- 03-CElegans.Rmd: contains the C.elegans plate analysis
+- 04-ReproducibleResearch.Rmd: contains both the open peer review and the reproduced code
+- 05-MachineLearning.Rmd: contains the breast cancer data analysis using random forest alghorithms from tidymodels
+- 06-Package.Rmd: contains a selfmade r package called twPackage
+- 07-DataScienceProject.Rmd: contains the information about the data science project AMR
+- 08-CovidCases.Rmd: contains the covid cases analysis
+- 20-appendices.Rmd: contains the appendix with the reproduced COVID-19 vaccin paper code
+- 21-Bibliography.Rmd: contains the references
+- css folder: contains the style.css file for the website (only works if it's in the css folder)
+- data folder: contains the data used in the code
+- dataRaw folder: contains the original untouched data files
+- index.Rmd: contains the index page (the page from where the bookdown starts)
+- LICENSE: contains the MIT license
+- PortofolioBookdown.Rproj: contains the Rproject 
+- README.md: redirects to the repositories and this METADATA file
+- References.bib: contains the references used
+- scripts folder: contains the scripts used in the code
+
+### css folder {-}
+
+- style.css: consists of the css code for the bookdown layout
+
 ### dataRaw & data folder {-}
 
 <p class="justify">The dataRaw folder holds the original data files. These data files are unedited and remain as untouched in the dataRaw folder as back-up. The data within the data folder are used within the Rmarkdown files and may differ from the original source in dataRaw.<p> 
 
-The data folder consists of the following files:
-- CE-LIQ-FLOW-062_Tidydata.xlsx: C.elegans data used in the C.elegans plate analysis
+The data & dataRawfolder folder consists of the following files:
+
+- CE-LIQ-FLOW-062_Tidydata.xlsx: C.elegans data used in the C.elegans plate analysis @louterCELIQFLOW
 - GuerrillaAnalytics.png: a screenshot of a project's directory tree to demonstrate the guerrilla analytics principles 
+- education.png, age.png, caseperm.png, supplementary.png: screenshots used for reproducing r code (chapter open peer review)
+- resampling.png: illustration of what resampling does in machine learning context
+- covidData.csv: Covid data used in the Covid cases analysis @DataDailyNumber2022
+- osfstorage-archive: contains the rmd of the reproduced code @palayewCOVID19VaccinePaper2020
+- breast-cancer.data: contains the breast cancer data for the random forest algorithm chapter @matjazzwitterBreastCancer1988
+- breast-cancer.names: contains the breast cancer data's metadata @matjazzwitterBreastCancer1988
+- dice.Rds and dice.csv: illustrate the tw_csv_rds function from the twPackage. Which saves a tibble as a csv and rds file
+
+### scripts {-}
+
+- cleanBook.R: script to use the clean book function to clean up bookdown files after building the book. Usage: source("data/CleanBook.R")
+- UpdateBib(DoesntWork).R: should have been used to update the References.bib file, but I could not get it working. I recommend ignoring this script
+
+

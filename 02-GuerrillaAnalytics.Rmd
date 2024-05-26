@@ -2,7 +2,7 @@
 
 ### Example Project {-}
 
-```{r echo=TRUE}
+```{r guerilla analytics include graphics, echo=TRUE}
 # Load example image
 knitr::include_graphics(here::here(
   "data",
@@ -12,7 +12,7 @@ knitr::include_graphics(here::here(
 
 ### Root Of This Bookdown Project {-}
 
-```{r GuerrillaAnalytics load, echo=TRUE, warning=FALSE, message=FALSE}
+```{r GuerrillaAnalytics root folder, echo=TRUE, warning=FALSE, message=FALSE}
 library(fs)
 library(tidyverse)
 

@@ -1,3 +1,0 @@
-clean_book() # show what files can be deleted
-clean_book(TRUE) # delete it for you
-options(bookdown.clean_book = TRUE) # always allow cleaning your book

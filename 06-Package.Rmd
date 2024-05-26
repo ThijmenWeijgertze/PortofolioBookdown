@@ -1,13 +1,5 @@
 # Rpackage (twPackage) {#06}
 
-```{r setup5, echo=FALSE}
-# setting up general settings for chunks
-knitr::opts_chunk$set(
-  warning=FALSE,
-  message=FALSE
-)
-```
-
 ### Introduction
 
 The package consists of 4 functions for a DataScience portofolio. The package is created with the following guide: @handleywickhamPackages2ndEdition2023. 
@@ -73,14 +65,14 @@ Pokemon data
 
 loading package
 
-```{r examples}
+```{r load tw package}
 # load package
 library(twPackage)
 ```
 
 tw_factor()
 
-```{r}
+```{r tw_factor}
 # Changing column Type.1 into a factor with unique levels
 pokemon$Type.1 <- tw_factor(pokemon$Type.1)
 levels(pokemon$Type.1)
@@ -88,21 +80,27 @@ levels(pokemon$Type.1)
 
 tw_csv_rds()
 
-```{r, eval=FALSE}
-# Exporting the pokemon table as pokemon.csv and pokemon.rds in the pokemon_data folder
-tw_csv_rds(pokemon, path = "data_pokemon/pokemon")
+```{r tw_csv_rds}
+# Creating a table with dice data
+dice_table <- tibble(
+  Number = 1:10,
+  Die_1 = c(3, 2, 3, 1, 5, 3, 2, 2, 6, 4),
+  Die_2 = c(3, 2, 5, 4, 2, 6, 1, 5, 3, 6)
+)
+# Exporting the dice table as dice.csv and dice.rds in the data folder
+tw_csv_rds(dice_table, path = "data/dice")
 ```
 
 tw_table()
 
-```{r}
+```{r tw_table}
 # creating a table with 5 rows per page
 tw_table(pokemon, pagesize = 5)
 ```
 
 tw_filter_select()
 
-```{r}
+```{r tw_filter_select}
 # Filtering on Type.1 = Fire and selecting the columns Name and Type.1
 tw_filter_select(
   pokemon, 

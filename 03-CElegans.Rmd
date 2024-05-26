@@ -6,7 +6,7 @@
 
 ```{r setting seed}
 # Seed chosen based on the current year
-set.seed(2023)
+set.seed(2024)
 ```
 
 ```{r Celegans packages}
@@ -20,7 +20,7 @@ library(reactable)
 
 ##### Importing and inspecting the data {-}
 
-<p class="justify">According to The data was kindly supplied by J. Louter (INT/ILC) and was derived from an experiment in which adult C.elegans nematodes were exposed to varying concentrations of different compounds.</p>
+<p class="justify">According to The data was kindly supplied by J. Louter (INT/ILC) and was derived from an experiment in which adult C.elegans nematodes were exposed to varying concentrations of different compounds. @louterCELIQFLOW</p>
 
 ```{r importing and inspecting the data}
 # importing xlsx file
@@ -50,7 +50,7 @@ reactable(CE_LIQ_FLOW_062_Tidydata, defaultPageSize = 5, compact = TRUE)
 
 ```{r checking and correcting datatypes}
 # Checking the data types of the following columns: RawData, compName, expType and compConcentration
-CE_LIQ_FLOW_062_Tidydata %>% select(RawData, compName, compConcentration, expType) %>% str()
+CE_LIQ_FLOW_062_Tidydata %>% dplyr::select(RawData, compName, compConcentration, expType) %>% str()
 
 # Changing compConcentration to numeric; changing compName into a factor; changing expType into a factor
 CE_LIQ_FLOW_062_Tidydata$compConcentration <- parse_number(CE_LIQ_FLOW_062_Tidydata$compConcentration)
@@ -58,7 +58,7 @@ CE_LIQ_FLOW_062_Tidydata$compName <- factor(CE_LIQ_FLOW_062_Tidydata$compName, l
 CE_LIQ_FLOW_062_Tidydata$expType <- factor(CE_LIQ_FLOW_062_Tidydata$expType, levels = unique(CE_LIQ_FLOW_062_Tidydata$expType))
 
 # Checking the new dataypes and factor levels
-CE_LIQ_FLOW_062_Tidydata %>% select(RawData, compName, compConcentration, expType) %>% str()
+CE_LIQ_FLOW_062_Tidydata %>% dplyr::select(RawData, compName, compConcentration, expType) %>% str()
 levels(CE_LIQ_FLOW_062_Tidydata$compName)
 levels(CE_LIQ_FLOW_062_Tidydata$expType)
 ```
@@ -74,7 +74,7 @@ CE_LIQ_FLOW_062_Tidydata <- CE_LIQ_FLOW_062_Tidydata %>% mutate(normalized = Raw
 mean(CE_LIQ_FLOW_062_Tidydata$RawData)
 
 CE_LIQ_FLOW_062_Tidydata %>% 
-  select(compName, expType, compConcentration, RawData, normalized) %>% 
+  dplyr::select(compName, expType, compConcentration, RawData, normalized) %>% 
   reactable(defaultPageSize = 5)
 
 CE_LIQ_FLOW_062_contNeg <- CE_LIQ_FLOW_062_Tidydata %>% filter(expType == "controlNegative")
@@ -86,7 +86,7 @@ contNegNorm_mean
 
 ##### Plotting the CE_LIQ_FLOW_062_normalized in a scatterplot {-}
 
-```{r scatterplot, fig.cap="The positive control for this experiments is controlPositive\nThe negative control for this experiment is controlNegative"}
+```{r scatterplot CElegans, fig.cap="The positive control for this experiments is controlPositive\nThe negative control for this experiment is controlNegative"}
 # Plotting the CE_LIQ_FLOW_062_normalized in a scatterplot
 ggplot(
     data = CE_LIQ_FLOW_062_Tidydata, 

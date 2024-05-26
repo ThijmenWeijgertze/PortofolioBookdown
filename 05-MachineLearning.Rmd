@@ -1,8 +1,8 @@
-# Learning random forests models (using tidymodels) {#05}
+# Predicting breast cancer recurrence events using random forests {#05}
 
 ### Introduction
 
-During the "Data Science for biology 2" course every student has the opportunity to learn a new skill for their portfolio. I have decided to introduce myself into "Machine Learning". I haven chosen machine learning, because over the past decade it has become an important skill in DataScience. Implementing algorithms to predict medical outcomes, using available data sets, can be extremely important for early medical diagnoses. Furthermore machine learning's high computational power makes it possible to analyze more factors and relations within the data at once. This can be highly beneficial while working with large data sets within the field of Life Sciences.
+During the "Data Science for biology 2" course every student has the opportunity to learn a new skill for their portfolio. I have decided to introduce myself into "Machine Learning". I haven chosen machine learning, because over the past decade it has become an important skill in DataScience. Implementing algorithms to predict medical outcomes, using available data sets, is important for early medical diagnoses. Furthermore machine learning makes it possible to analyze more factors and relations within the data at once. This can be highly beneficial while working with large data sets within the field of Life Sciences.
 
 ### Goal
 
@@ -10,7 +10,7 @@ At the end of this course I want to have created an algorithm able to predict th
 
 ### Data
 
-> This breast cancer domain was obtained from the University Medical Centre, Institute of Oncology, Ljubljana, Yugoslavia. Thanks go to M. Zwitter and M. Soklic for providing the data.
+This breast cancer domain was obtained from the University Medical Centre, Institute of Oncology, Ljubljana, Yugoslavia. Thanks go to M. Zwitter and M. Soklic for providing the data. @matjazzwitterBreastCancer1988
 
 The table consist of the following variables:
 
@@ -50,7 +50,7 @@ Week 2:
 
 ### Dataset
 
-```{r loading in data}
+```{r loading in breast cancer data}
 library(gt)
 library(reactable)
 
@@ -76,7 +76,7 @@ reactable(
 
 ### Data Wrangling
 
-```{r}
+```{r inspecting variable types}
 str(bcData)
 ```
 
@@ -84,7 +84,7 @@ str(bcData)
 
 The breast cancer dataset had `r ncol(bcData)` columns and `r nrow(bcData)` rows. The next step was correcting the variable types to factors and renaming non-recurrence-events to NRE and recurrence events to RE.
 
-```{r}
+```{r changing types and renaming values}
 # changing type to factor
 bcData$class <- factor(bcData$class, levels = unique(bcData$class))
 bcData$age <- factor(bcData$age, levels = unique(bcData$age))
@@ -106,24 +106,26 @@ str(bcData)
 
 ### Splitting the data
 
-After checking the variables the data must be split into a training set and a test set. The test set must be different from the training set to avoid the model from overfitting. Overfitting means that the machine learning model is too well trained on memorizing its own training data that it can not accurately predict data outside of its training data. There are many ways to prevent overfitting. Examples are early stopping, feature selecting by excluding irralevent columns from the dataset, using more data to train on, data augmentation by adding noisy data within the dataset, Regularization by giving a penalty to parameters with large coefficients, ensamble methods by creating random samples in the training set to train them individually. This however comes with its own downside as this might cause underfitting. Underfitting is a term used when the model is not trained well enough on the training data to make accurate predictions outside of the training data.  https://www.ibm.com/topics/overfitting
+After checking the variables the data must be split into a training set and a test set. The test set must be different from the training set to avoid the model from overfitting. Overfitting means that the machine learning model is too well trained on memorizing its own training data that it can not accurately predict data outside of its training data. There are many ways to prevent overfitting. Examples are early stopping, feature selecting by excluding irralevent columns from the dataset, using more data to train on, data augmentation by adding noisy data within the dataset, Regularization by giving a penalty to parameters with large coefficients, ensamble methods by creating random samples in the training set to train them individually. This however comes with its own downside as this might cause underfitting. Underfitting is a term used when the model is not trained well enough on the training data to make accurate predictions outside of the training data. @WhatOverfittingIBM2021; @TidymodelsWelcome
 
-```{r}
+```{r split data}
+# split data
 library(tidymodels)
 set.seed(2024)
 bcData_split <- initial_split(bcData, prop = 0.7, strata = class)
 ```
 
-The data gets split randomly so for the sake of reproducibility a seed is set. The function initial_split takes in the breast cancer dataset. Prop is used to specify the data to be split into 70% training data and 30% test data. Strata ensures that even though the data is split randomly both the training and test set will have the roughly the same percentage of no recurrence events and recurrence events.
+The data gets split randomly so for the sake of reproducibility a seed is set. The function initial_split takes in the breast cancer dataset. Prop is used to specify the data to be split into 70% training data and 30% test data. Strata ensures that even though the data is split randomly both the training and test set will have the roughly the same percentage of no recurrence events and recurrence events. @TidymodelsWelcome
 
-```{r}
+```{r store data into training and testing}
+# store data into training and testing
 bcData_train <- training(bcData_split)
 bcData_test  <- testing(bcData_split)
 ```
 
 Using the training and testing functions both the training and test set are stored in variables. 
 
-```{r}
+```{r checking the split}
 # checking the split
 nrow(bcData_train)/nrow(bcData)
 
@@ -140,24 +142,38 @@ bcData_test %>%
 
 Above results shows that as expected the dataset is split 70% to 30% and the strata function has made sure the proportions of no recurrence events and recurrence events are nearly equal in both the training and test set.
 
-### Creating a random forest model
+### Resampling the random forest model
 
-```{r}
+```{r resampling screenshot}
+knitr::include_graphics(here::here(
+  "data",
+  "resampling.png"
+))
+```
+
+Resampling will be used for evaluation of models. The data itself is split by using initial split. The training data is then split again into analysis and assesment groups. There are more ways to evaluate a model like cross-validation or bootstrapping. In this case cross-validation will be used. Cross-validation divides the training data in folds of around equal size. The first fold is the assessment fold and all other folds are analysis folds. While training each independent fold will be evaluated with the first assessment fold to predict its performance. @TidymodelsWelcome
+
+```{r resampling}
+set.seed(111)
+folds <- vfold_cv(bcData_train, v = 15, strata = class) 
+folds
+```
+
+The vfold_cv function is used to create folds. Again a strata is used to distribute the no recurrence events and recurrence events equally over the folds. 
+
+### Creating a random forest model using Ranger
+
+```{r show engines}
 show_engines("rand_forest")
 ```
 
-There are a lot of engines to use for machine learning with tidymodels. A list of engines can be found [here](https://www.tidymodels.org/find/parsnip/). In this case a random forest engine called ranger is chosen. Random forest algorithms try to narrow the data by asking questions about features such as is the age 15-19 or combine different features like age and degree of malignancy. These questions create a decision tree. Multiple decision trees combined makes up a forest. The questions get more specific the further in the decision tree you get. The questions itself are chosen based on the patterns in the dataset. The trained model then uses these same questions on new data sets such as the test set to predict in this case if its a no recurrence event or recurrence event. 
+There are a lot of engines to use for machine learning with tidymodels. A list of engines can be found [here](https://www.tidymodels.org/find/parsnip/).Different engines use a different way of computing the data. Random forest algorithms try to narrow the data by asking questions about features such as is the age 15-19 or combine different features like age and degree of malignancy. These questions create a decision tree. Multiple decision trees combined makes up a forest. The questions get more specific the further in the decision tree you get. The questions itself are chosen based on the patterns in the dataset. The trained model then uses these same questions on new data sets such as the test set to predict in this case if its a no recurrence event or recurrence event. @WhatRandomForest2021; @TidymodelsWelcome
 
-An ensemble technique called bagging (aka bootstrap aggregating) is often used to reduce variance in a dataset. The random forest algorithm uses this technique to improve its accuracy. The way bagging works is it makes multiple sample sets out of the training data. These sample sets can use the same values. Each sample is then trained independently and the results are combined to make a final more accurate prediction based on the averages of the trained samples. 
+An ensemble technique called bagging (aka bootstrap aggregating) is often used to reduce variance in a dataset. The random forest algorithm uses this technique to improve its accuracy. The way bagging works is it makes multiple sample sets out of the training data. These sample sets can use the same values. Each sample is then trained independently and the results are combined to make a final more accurate prediction based on the averages of the trained samples. @WhatRandomForest2021; @TidymodelsWelcome
 
-The random forest algorithm takes in three main hyperparameters: node size, number of trees and features sampled. If the number of values after a split in a tree drops below the node size then the tree will not split anymore. The number of trees specifies how many decision trees are combined to create the forest. The features sampled specifies which features (like age and degree of malignancy) will be taken into account for training the model.
+The random forest algorithm takes in three main hyperparameters: node size, number of trees and features sampled. If the number of values after a split in a tree drops below the node size then the tree will not split anymore. The number of trees specifies how many decision trees are combined to create the forest. The features sampled specifies which features (like age and degree of malignancy) will be taken into account for training the model. @WhatRandomForest2021; @TidymodelsWelcome; @simoneAnswerWhatDoes2015
 
-
-https://www.ibm.com/topics/random-forest
-
-https://stats.stackexchange.com/questions/158583/what-does-node-size-refer-to-in-the-random-forest
-
-```{r}
+```{r train ranger model}
 # show available cores
 cores <- parallel::detectCores()
 cores
@@ -166,75 +182,60 @@ cores
 bcData_rf_ranger_mod <- rand_forest(
   mode = "classification", # the type of analysis: classification, regression, etc
   mtry = tune(), # amount of features per decision tree
-  trees = 2000, # number of trees
+  trees = tune(), # number of trees
   min_n = tune(), # minimal node size
-) %>% 
-  set_engine("ranger", num.threads = cores - 1, importance = "impurity") 
+) %>%  set_engine("ranger", num.threads = cores - 1, importance = "impurity")
 # using the ranger engine
 # using all available cores except 1 
 # so that other smaller processes on the computer still run
 ```
 
-The random forest model is created using the rand_forest function. The mode is set to classification because the result is either a recurrence event or non recurrence event (another mode could be regression for example, which depends on the dataset). The mtry is set to 3 which means per decision tree the number of features will be limited to a maximum of 3. The trees are set to 1000 so 1000 decision trees will be created to form the forest. The minimal node size and the amount of features are set to tune() (will be explained later on when tuning and training the model). The engine chosen is ranger.
+The random forest model is created using the rand_forest function. The mode is set to classification because the result is either a recurrence event or non recurrence event (another mode could be regression for example, which depends on the variable types within the dataset). The mtry (max features per decision tree) is set to tune() which means the random forest algorithm will try different mtry values to find the best performing value. Both the number of trees and the minimal node size are also set to tune(). The engine chosen is ranger. All cores except 1 are used for training the model. This computer has `r cores` cores so `r cores-1`` will be used to train the model. By setting importance = "impurity" the most important decisions in the forest model are stored for visualization later on. @TidymodelsWelcome
 
-### Resampling the random forest model
-
-```{r}
-knitr::include_graphics(here::here(
-  "data",
-  "resampling.png"
-))
-```
-
-Resampling will be used for evaluation of models. The data itself is split by using initial split. The training data is then split again into analysis and assesment groups. There are more ways to evaluate a model like cross-validation or bootstrapping. In this case cross-validation will be used. Cross-validation divides the training data in folds of around equal size. The first fold is the assesment fold and all other folds are analysis folds. While training each independent fold will be evaluated with the first assessment fold to predict its performance.
-
-```{r}
-set.seed(111)
-folds <- vfold_cv(bcData_train, v = 10) 
-folds
-```
-
-The vfold_cv function is used to create 10 folds. Again a seed is set for reproducibility.
-
-### Tuning and training the ranger engine
+### Tuning and training the randomForest engine
 
 The random forest algorithm must know which features to use to predict the class. To tell the algorithm this a recipe must be made.
 
-```{r}
+```{r create recipe}
 bcData_rf_rec <- recipe(class ~ ., data = bcData_train) %>% 
   step_zv(all_predictors())
 ```
 
-The recipe contains a formula describing the to be predicted feature and the features to use for the prediction. In this case class is the feature to predict and all other features (indicated by the dot after the tilde) are used to predict the class. step_zv() is used to remove features in the training set that only show the same value (for example if all rows had age 15-19). These features are not useful and could only cause overfitting. With regression data "step_dummy()" must be used to convert categorical data to numerical data by making it like binary.
+The recipe contains a formula describing the to be predicted feature and the features to use for the prediction. In this case class is the feature to predict and all other features (indicated by the dot after the tilde) are used to predict the class. step_zv() is used to remove features in the training set that only show the same value (for example if all rows had age 15-19). These features are not useful and could only cause overfitting. With regression data "step_dummy()" must be used to convert categorical data to numerical data by making it like binary. In this case we don't need it, because the breast cancer dataset is based on classification data. @TidymodelsWelcome
 
-```{r}
+```{r combine recipe and ranger model}
 # combining model and recipe into a workflow
-bcData_rf_workflow <- workflow() %>% 
-  add_model(bcData_rf_ranger_mod) %>% 
-  add_recipe(bcData_rf_rec) 
+bcData_ranger_rf_workflow <- workflow() %>% 
+  add_model(bcData_rf_ranger_mod) %>%
+  add_recipe(bcData_rf_rec)
 ```
 
-A workflow is created to combine the model with the recipe.
+A workflow is created to combine the model with the recipe. After which the model will be tuned.
 
-```{r}
+```{r tune the ranger model}
 set.seed(777)
 
 # tune the model
-bcData_lr_res <- 
-  bcData_rf_workflow %>% 
+bcData_ranger_lr_res <- 
+  bcData_ranger_rf_workflow %>% 
   tune_grid(resamples = folds,
             grid = 50,
             control = control_grid(save_pred = TRUE),
             metrics = metric_set(roc_auc, accuracy))
-bcData_lr_res
+bcData_ranger_lr_res
 ```
 
-```{r}
-autoplot(bcData_lr_res)
+To tune the model a grid is needed. The grid could be made manually, but the function tune_grid directly makes the grid and tunes it. The resamples parameter is set to indicate that we're using the resample folds from earlier. The grid parameter is set to 50 which means 50 models will be created with different combinations of hyperparameters. The control_grid parameter is set to save the predictions. The metrics parameter saves the roc_auc and accuracy results. @TidymodelsWelcome
+
+```{r plot the tuned results}
+autoplot(bcData_ranger_lr_res)
 ```
 
-```{r}
-bcData_lr_res %>%
+Autoplot is used to show the effect of the hyperparameters on the accuracy and roc_auc results.
+
+```{r plot mtry and min_n}
+# mtry + min_n
+bcData_ranger_lr_res %>%
   collect_metrics() %>%
   mutate(mtry = factor(mtry)) %>%
   ggplot(aes(min_n, mean, color = mtry)) +
@@ -243,59 +244,239 @@ bcData_lr_res %>%
   facet_wrap(~ .metric, scales = "free", nrow = 2) +
   scale_x_log10(labels = scales::label_number()) +
   scale_color_viridis_d(option = "plasma", begin = .9, end = 0)
-#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-#> ℹ Please use `linewidth` instead.
 ```
 
-```{r}
-bcData_best_trees <- bcData_lr_res %>%
+```{r plot mtry and trees}
+# mtry + trees
+bcData_ranger_lr_res %>%
+  collect_metrics() %>%
+  mutate(mtry = factor(mtry)) %>%
+  ggplot(aes(trees, mean, color = mtry)) +
+  geom_line(size = 1.5, alpha = 0.6) +
+  geom_point(size = 2) +
+  facet_wrap(~ .metric, scales = "free", nrow = 2) +
+  scale_x_log10(labels = scales::label_number()) +
+  scale_color_viridis_d(option = "plasma", begin = .9, end = 0)
+```
+
+```{r plot min_n + trees}
+# min_n + trees
+bcData_ranger_lr_res %>%
+  collect_metrics() %>%
+  mutate(min_n = factor(min_n)) %>%
+  ggplot(aes(trees, mean, color = min_n)) +
+  geom_line(size = 1.5, alpha = 0.6) +
+  geom_point(size = 2) +
+  facet_wrap(~ .metric, scales = "free", nrow = 2) +
+  scale_x_log10(labels = scales::label_number()) +
+  scale_color_viridis_d(option = "plasma", begin = .9, end = 0)
+```
+
+The figures above show the correlation between the hyperparameters and the metrics. The first figure shows the correlation between the mtry and min_n hyperparameters. The second figure shows the correlation between the mtry and trees hyperparameters. The third figure shows the correlation between the min_n and trees hyperparameters. The Y axis shows the mean of the metric and the X axis and colors show the hyperparameters. These figures can be used to see how certain parameters affect each other. For example mtry might have a really high mean, but a low mean when combined with a certain value of min_n. It also shows that the models tend to have the best performance with a mtry of 1 and a higher min_n.
+
+```{r show top 5 best ranger models}
+bcData_ranger_best_trees <- bcData_ranger_lr_res %>%
   show_best(metric = "accuracy")
-bcData_best_trees
+bcData_ranger_best_trees
 ```
 
-```{r}
-bcData_best_tree <- bcData_lr_res %>%
-  select_best(metric = "accuracy")
-bcData_best_tree
+Show_best() is used to show the top 5 best performing models based on the accuracy metric. @TidymodelsWelcome
+
+```{r show and store the best ranger model}
+bcData_ranger_tree <- bcData_ranger_best_trees %>% dplyr::select("mtry", "trees", "min_n", ".config") %>% filter(row_number() == 1)
+bcData_ranger_tree
 ```
 
-```{r}
-# using the best performing model
-bcData_final_workflow <- 
-  bcData_rf_workflow %>% 
-  finalize_workflow(bcData_best_tree)
+a model has been chosen using a combination of the select and filter
 
-# fit
-bcData_final_fit <- 
-  bcData_final_workflow %>%
+### Creating a random forest model using randomForest
+
+The same principle as ranger will be used, but now with the randomForest engine.
+
+```{r train randomForest model}
+# train the model
+bcData_rf_randomForest_mod <- rand_forest(
+  mtry = tune(), # amount of features per decision tree
+  trees = tune(), # number of trees
+  min_n = tune(), # minimal node size
+) %>% set_engine("randomForest", num.threads = cores-1) %>% set_mode("classification") %>% translate()
+# using the ranger engine
+# using all available cores except 1 
+# so that other smaller processes on the computer still run
+```
+
+The engine uses `r cores-1` cores to train the model. The hyperparameters mtry, trees and min_n will be tuned later on using a grid. The translate function coverts the model to work with parsnip.@TidymodelsWelcome
+
+### Tuning and training the randomForest engine
+
+```{r combine recipe and randomForest model}
+# combining model and recipe into a workflow
+bcData_randomForest_rf_workflow <- workflow() %>% 
+  add_model(bcData_rf_randomForest_mod) %>%
+  add_recipe(bcData_rf_rec)
+```
+
+The same recipe as last time is used, but this time the new randomForest model is added.
+
+```{r tune the randomForest model}
+set.seed(777)
+# tune the model
+bcData_randomForest_lr_res <- 
+  bcData_randomForest_rf_workflow %>% 
+  tune_grid(resamples = folds,
+            grid = 50,
+            control = control_grid(save_pred = TRUE),
+            metrics = metric_set(roc_auc, accuracy))
+bcData_randomForest_lr_res
+```
+
+The grid function is used to tune the model. The resamples parameter indicates that the earlier folds are being used. The grid parameter indicates the amount of models that will be made and compared for the best performance. Using the control and metrics parameters the predictions, roc_auc and accuracy are saved. @TidymodelsWelcome
+
+```{r plot the tuned randomForest results}
+autoplot(bcData_randomForest_lr_res)
+```
+
+autoplot is used to show the effect of parameters on the accuracy and roc_auc results.
+
+```{r plot mtry and min_n randomForest}
+# mtry + min_n
+bcData_randomForest_lr_res %>%
+  collect_metrics() %>%
+  mutate(mtry = factor(mtry)) %>%
+  ggplot(aes(min_n, mean, color = mtry)) +
+  geom_line(size = 1.5, alpha = 0.6) +
+  geom_point(size = 2) +
+  facet_wrap(~ .metric, scales = "free", nrow = 2) +
+  scale_x_log10(labels = scales::label_number()) +
+  scale_color_viridis_d(option = "plasma", begin = .9, end = 0)
+```
+
+```{r plot mtry and trees randomForest}
+# mtry + trees
+bcData_randomForest_lr_res %>%
+  collect_metrics() %>%
+  mutate(mtry = factor(mtry)) %>%
+  ggplot(aes(trees, mean, color = mtry)) +
+  geom_line(size = 1.5, alpha = 0.6) +
+  geom_point(size = 2) +
+  facet_wrap(~ .metric, scales = "free", nrow = 2) +
+  scale_x_log10(labels = scales::label_number()) +
+  scale_color_viridis_d(option = "plasma", begin = .9, end = 0)
+```
+
+```{r min_n and trees plotted randomForest}
+# min_n + trees
+bcData_randomForest_lr_res %>%
+  collect_metrics() %>%
+  mutate(min_n = factor(min_n)) %>%
+  ggplot(aes(trees, mean, color = min_n)) +
+  geom_line(size = 1.5, alpha = 0.6) +
+  geom_point(size = 2) +
+  facet_wrap(~ .metric, scales = "free", nrow = 2) +
+  scale_x_log10(labels = scales::label_number()) +
+  scale_color_viridis_d(option = "plasma", begin = .9, end = 0)
+```
+
+The figures above show the correlation between the hyperparameters and the metrics. The first figure shows the correlation between the mtry and min_n hyperparameters. The second figure shows the correlation between the mtry and trees hyperparameters. The third figure shows the correlation between the min_n and trees hyperparameters. The Y axis shows the mean of the metric and the X axis and colors show the hyperparameters. These figures can be used to see how certain parameters affect eachother. For example mtry might have a really high mean, but a low mean when combined with a certain value of min_n. It also shows that like the ranger models the randomForest models again tend to have the best performance with a mtry of 1 and a higher min_n.
+
+```{r show top 5 best randomForest models}
+bcData_randomForest_best_trees <- bcData_randomForest_lr_res %>%
+  show_best(metric = "accuracy")
+bcData_randomForest_best_trees
+```
+
+Show_best() is used to show the top 5 best performing models based on the accuracy metric.
+
+```{r show and store best randomForest model}
+bcData_randomForest_tree <- bcData_randomForest_best_trees %>%  dplyr::select("mtry", "trees", "min_n", ".config") %>% filter(row_number() == 1)
+bcData_randomForest_tree
+```
+
+A model has been chosen using a combination of the select and filter
+
+### Final models comparison
+
+The best performing models are compared to each other using the finalize_workflow() function. This function overwrites the earlier workflow with the parameters from the best performing model. The last_fit() function is then used to fit the model to the test set and see the performance. @TidymodelsWelcome
+
+```{r fit the models to the test set}
+# using the best performing ranger model
+bcData_ranger_final_workflow <- 
+  bcData_ranger_rf_workflow %>% 
+  finalize_workflow(bcData_ranger_tree)
+
+# fit ranger model
+bcData_ranger_final_fit <- 
+  bcData_ranger_final_workflow %>%
+  last_fit(bcData_split) 
+
+# using the best performing randomForest model
+bcData_randomForest_final_workflow <- 
+  bcData_randomForest_rf_workflow %>% 
+  finalize_workflow(bcData_randomForest_tree)
+
+# fit randomForest model
+bcData_randomForest_final_fit <- 
+  bcData_randomForest_final_workflow %>%
   last_fit(bcData_split) 
 ```
 
-```{r}
-# metrics
-bcData_final_fit %>%
+```{r show metrics}
+# ranger metrics
+bcData_ranger_final_fit %>%
+  collect_metrics()
+
+# randomForest metrics
+bcData_randomForest_final_fit %>%
   collect_metrics()
 ```
 
-```{r}
-# predictions
-bcData_final_fit %>%
+The accuracy shows how many values of the test set were correctly predicted The ROC AUC is the area under the ROC curve. The ROC curve itself is made by plotting the true positive rate against the false positive rate. This shows the ability of the model to distinquish between non-recurrence-events and recurrence-events. A model can have a high accuracy even though the roc_auc is low. An example could be that a large proportion of the data is non-recurrence-events and the model then keeps guessing non-recurrence events, because it has a higher chance to be correct. The brier_class is used to determine the overall performance of the model. The lower the brier_class the better the model. The values range between 0 and 1. This shows that the ranger model has the best overall performance. @TidymodelsWelcome
+
+```{r ROC plot}
+# predictions ranger
+bcData_ROC_ranger <- bcData_ranger_final_fit %>%
   collect_predictions() %>% 
   roc_curve(class, .pred_NRE) %>% 
-  autoplot()
+  mutate(model = "ranger")
+
+# predictions randomForest
+bcData_ROC_randomForest <- bcData_randomForest_final_fit %>%
+  collect_predictions() %>% 
+  roc_curve(class, .pred_NRE) %>% 
+  mutate(model = "randomForest")
+
+# bind the data together in one plot
+bind_rows(bcData_ROC_ranger, bcData_ROC_randomForest) %>% 
+  ggplot(aes(x = 1 - specificity, y = sensitivity, col = model)) + 
+  geom_path(lwd = 1.5, alpha = 0.8) +
+  geom_abline(lty = 3) + 
+  coord_equal() + 
+  scale_color_viridis_d(option = "plasma", end = .6)
 ```
 
-```{r}
-bcData_final_tree <- extract_workflow(bcData_final_fit)
-bcData_final_tree
+The figure above this paragraph is the ROC. Both randomForest and ranger have very similar results though ranger performs slightly better.
+
+```{r extract final tree workflow ranger}
+bcData_ranger_final_tree <- extract_workflow(bcData_ranger_final_fit)
+bcData_ranger_final_tree
+```
+
+```{r extract final tree workflow randomForest}
+bcData_randomForest_final_tree <- extract_workflow(bcData_randomForest_final_fit)
+bcData_randomForest_final_tree
 ```
 
 https://www.tidymodels.org/learn/models/conformal-regression/
 
-```{r}
+```{r show the importance of the features}
 library(vip)
-bcData_final_tree %>% 
+bcData_ranger_final_tree %>% 
+  extract_fit_parsnip() %>% 
+  vip()
+
+bcData_randomForest_final_tree %>% 
   extract_fit_parsnip() %>% 
   vip()
 ```
 
+The vip function is used to show the most important features in the model. The ranger model shows that the most important features for it's model are the degree of malignancy, then the tumor size, etc. The randomForest model shows that the most important feature is the tumor_size and then the inv_nodes, etc. Both graphs show that it's not of importance which breast the tumor is located in.
