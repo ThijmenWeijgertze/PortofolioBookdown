@@ -196,7 +196,7 @@ folds
 
 The vfold_cv function is used to create 10 folds. Again a seed is set for reproducibility.
 
-### Tuning and training using the ranger engine
+### Tuning and training the ranger engine
 
 The random forest algorithm must know which features to use to predict the class. To tell the algorithm this a recipe must be made.
 
@@ -257,16 +257,13 @@ bcData_best_trees
 bcData_best_tree <- bcData_lr_res %>%
   select_best(metric = "accuracy")
 bcData_best_tree
-
-bcData_fourth_best_tree <- bcData_best_trees %>% select("mtry", "min_n", ".config") %>% filter(row_number() == 4)
-bcData_fourth_best_tree
 ```
 
 ```{r}
 # using the best performing model
 bcData_final_workflow <- 
   bcData_rf_workflow %>% 
-  finalize_workflow(bcData_fourth_best_tree)
+  finalize_workflow(bcData_best_tree)
 
 # fit
 bcData_final_fit <- 
@@ -293,22 +290,12 @@ bcData_final_tree <- extract_workflow(bcData_final_fit)
 bcData_final_tree
 ```
 
-
-
 https://www.tidymodels.org/learn/models/conformal-regression/
-
-```{r}
-library(rpart.plot)
-bcData_final_tree %>%
-  extract_fit_engine() %>%
-  rpart.plot(roundint = FALSE)
-```
 
 ```{r}
 library(vip)
 bcData_final_tree %>% 
   extract_fit_parsnip() %>% 
-  vip(num_features = 20)
-
+  vip()
 ```
 
