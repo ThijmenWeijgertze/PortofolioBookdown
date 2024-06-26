@@ -2,7 +2,9 @@
 
 ### Example Project {-}
 
-```{r guerilla analytics include graphics, echo=TRUE}
+The example below demonstrates an older data science project. The folder structure of this project has been restructured with guerrilla analytics principles in mind.   
+
+```{r guerilla analytics include graphics}
 # Load example image
 knitr::include_graphics(here::here(
   "data",
@@ -12,7 +14,9 @@ knitr::include_graphics(here::here(
 
 ### Root Of This Bookdown Project {-}
 
-```{r GuerrillaAnalytics root folder, echo=TRUE, warning=FALSE, message=FALSE}
+The structure of this bookdown is shown below.
+
+```{r GuerrillaAnalytics root folder}
 library(fs)
 library(tidyverse)
 

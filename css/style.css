@@ -7,21 +7,6 @@
   padding-left: 15px;
 }
 
-.book {
-  background-color: #f0f;
-}
-
-.link {
-  color: red;
-  background-color: transparent;
-  text-decoration: none;
-}
-
-p.caption {
-  color: red;
-  margin-top: 10px;
-}
-
 .important {
   color: red;
   font-weight: bold;
@@ -32,10 +17,6 @@ p.caption {
 h1.title {
   color: rgb(0,80,80);
   font-weight: 1000;
-}
-
-book-body {
-  background-color: red;
 }
 
 h1 {

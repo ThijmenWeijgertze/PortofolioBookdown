@@ -1,4 +1,4 @@
-# Appendix 1: COVID-19 Vaccine paper {#20}
+# Appendix 1: COVID-19 Vaccine paper {#19}
 
 see: [Open Peer Review](#04)
 
@@ -605,4 +605,3 @@ plot <- ggplot(data = data_test)+
 plot
 
 ```
-

@@ -100,7 +100,7 @@ covidDataJoined %>%
   scale_color_brewer(palette = "Dark2") # colorblind friendly color scale
 ```
 
-Pseudocode heatmap plot @raschkaShortTutorialDecent0000
+### Pseudocode heatmap plot @raschkaShortTutorialDecent
 
 - devide the cases and deaths by the population data of 2020 to normalize the data
 - sort the columns by day number @bobbittHowSortData2021
@@ -112,7 +112,7 @@ Pseudocode heatmap plot @raschkaShortTutorialDecent0000
 
 ### Preparing the data for the heatmap
 
-Cases @raschkaShortTutorialDecent0000:
+Cases @raschkaShortTutorialDecent:
 
 ```{r prepare cases data for the heatmap}
 # matrix preparation for cases
@@ -136,7 +136,7 @@ covidDataMatrixCases <- data.matrix(covidDataMatrixCases[,2:ncol(covidDataMatrix
 rownames(covidDataMatrixCases) <- rnames
 ```
 
-Deaths @raschkaShortTutorialDecent0000:
+Deaths @raschkaShortTutorialDecent:
 
 ```{r prepare deaths data for the heatmap}
 # matrix preparation for cases
@@ -160,7 +160,7 @@ covidDataMatrixDeaths <- data.matrix(covidDataMatrixDeaths[,2:ncol(covidDataMatr
 rownames(covidDataMatrixDeaths) <- rnames
 ```
 
-### Heatmap @raschkaShortTutorialDecent0000
+### Heatmap @raschkaShortTutorialDecent
 
 ```{r plot the cases heatmap, fig.width=10}
 # heatmap plot cases

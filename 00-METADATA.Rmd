@@ -12,12 +12,14 @@ Website link: [thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/](https:/
 
 ### How to build the book localy {-}
 
-- Download the bookdown package
+- Download the rmarkdown package (cran)
+- Download the bookdown package (cran)
 - Download the bookdown source code
 - Open the Rproject file
+- Run the "Installing dependency packages" code chunk
 - Press the build book button
 - If there is no build book button use: `bookdown::render_book(".")`
-- If something goes wrong with downloading the dependencies automaticly try to install the dependencies manually
+- If something goes wrong try to install the dependencies manually
 
 ### Dependency packages {-}
 
@@ -41,8 +43,8 @@ Website link: [thijmenweijgertze.github.io/ThijmenWeijgertze-portfolio/](https:/
 -   MASS
 -   twPackage (devtools::install_github("ThijmenWeijgertze/twPackage", build_vignettes = TRUE))
 
-Installing dependency packages (if it doesn't download automatically please install the dependencies by hand):
-```{r downloading and loading dependency packages}
+Installing dependency packages:
+```{r Installing dependency packages}
 # if not installed: installing dependency packages from cran
 for (package in c("devtools", "tidyverse", "tidymodels", "bookdown", "reactable", "gt", "fs", "tidyverse", "RColorBrewer", "ranger", "readxl", "ggfortify", "tableone", "randomForest", "broom.mixed", "rpart.plot", "vip", "MASS")) {
   if (!require(package, character.only = TRUE)) {
@@ -75,7 +77,7 @@ dir_tree(".", recurse = TRUE, regexp = "^.gitignore$|^[^_|(.git)]", all = TRUE)
 
 - .gitignore: file to withold files from being pushed to github
 - 00-METADATA.Rmd: contains the metadata of the project
-- 01_CV.Rmd: contains the CV
+- 01_CV.Rmd: contains the resume
 - 02-GuerillaAnalytics.Rmd: contains the folder structure of this project and an older project to show of guerilla analytics principles
 - 03-CElegans.Rmd: contains the C.elegans plate analysis
 - 04-ReproducibleResearch.Rmd: contains both the open peer review and the reproduced code
@@ -83,7 +85,8 @@ dir_tree(".", recurse = TRUE, regexp = "^.gitignore$|^[^_|(.git)]", all = TRUE)
 - 06-Package.Rmd: contains a selfmade r package called twPackage
 - 07-DataScienceProject.Rmd: contains the information about the data science project AMR
 - 08-CovidCases.Rmd: contains the covid cases analysis
-- 20-appendices.Rmd: contains the appendix with the reproduced COVID-19 vaccin paper code
+- 19-appendices.Rmd: contains the appendix with the reproduced COVID-19 vaccin paper code
+- 20-SessionInfo.Rmd: contains the session info
 - 21-Bibliography.Rmd: contains the references
 - css folder: contains the style.css file for the website (only works if it's in the css folder)
 - data folder: contains the data used in the code
@@ -114,10 +117,9 @@ The data & dataRawfolder folder consists of the following files:
 - breast-cancer.data: contains the breast cancer data for the random forest algorithm chapter @matjazzwitterBreastCancer1988
 - breast-cancer.names: contains the breast cancer data's metadata @matjazzwitterBreastCancer1988
 - dice.Rds and dice.csv: illustrate the tw_csv_rds function from the twPackage. Which saves a tibble as a csv and rds file
+- ThijmenWeijgertzeResume.pdf: My resume in pdf format voor the resume chapter
 
 ### scripts {-}
 
 - cleanBook.R: script to use the clean book function to clean up bookdown files after building the book. Usage: source("data/CleanBook.R")
 - UpdateBib(DoesntWork).R: should have been used to update the References.bib file, but I could not get it working. I recommend ignoring this script
-
-
