@@ -1,5 +1,5 @@
 ---
-title: "Data Science portfolio Thijmen Weijgertze"
+title: "Data Science Portfolio Thijmen Weijgertze"
 site: bookdown::bookdown_site
 data: "2024"
 bibliography: References.bib
