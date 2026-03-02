@@ -40,7 +40,7 @@ Code Availability | Authors have shared access to the most updated code that the
 
 ### Conclusion
 
-<p class="justify">The article scores positive in almost all aspects expects except the ethics statement and Author Review. The author scored tier 3 on the Author Review which states "Author used institutional email address as primary contact". An ORCID ID has not been found which is required for Tier 4. The first time reviewing this article on April 17th 2024 the github page did not work yet and it scored negative on code availibility. This has recently been fixed as the github link now works. Thereby the article scores rather high on the open peer review. The article only misses an ethics statement and ORCID ID. Last updated on the 26th of May 2024.</p>
+<p class="justify">The article scores positive in almost all aspects expects except the ethics statement and Author Review. The author scored tier 3 on the Author Review which states "Author used institutional email address as primary contact". An ORCID ID has not been found which is required for Tier 4. The first time reviewing this article on April 17th 2024 the github page did not work yet and it scored negative on code availibility. This has recently been fixed as the github link now works. Thereby the article scores rather high on the open peer review. The article only misses an ethics statement and ORCID ID. This paragraph has last been updated on the 26th of May 2024.</p>
 
 ### Reproducing R code @palayewCOVID19VaccinePaper2020
 

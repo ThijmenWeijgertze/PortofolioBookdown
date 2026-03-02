@@ -44,7 +44,7 @@ knitr::opts_chunk$set(
 
 ### Introduction 
 
-<p class="justify">This github page is written by Thijmen Weijgertze using Rstudio. I am a 3rd year Life Science student at HU University of Applied Sciences Utrecht. In the past half year I've followed a DataScience minor provided by the HU. This Github page serves as my DataScience portofolio for showing off my DataScience skills. The course is created by @gestelDataScienceWorkflows based on the "bookdown: Authoring Books and Technical Documents with R Markdown" book from @xieBookdownAuthoringBooksa.</p>
+<p class="justify">This github page has been written by Thijmen Weijgertze using Rstudio. I graduated in Life Science student at HU University of Applied Sciences Utrecht. During a period of 6 months I have followed a DataScience minor provided by the HU. This Github page serves as my DataScience portofolio for showing off my DataScience skills. The course is created by @gestelDataScienceWorkflows based on the "bookdown: Authoring Books and Technical Documents with R Markdown" book from @xieBookdownAuthoringBooksa.</p>
 
 ### Toc
 

@@ -1,5 +1,5 @@
 # Resume {#01}
 
 ```{r include_resume, out.width="100%", out.height="1000px"}
-knitr::include_graphics(here::here("data", "ThijmenWeijgertzeResume.pdf"))
+knitr::include_graphics(here::here("data", "EN-ThijmenWeijgertzeResumeBookdown.pdf"))
 ```
