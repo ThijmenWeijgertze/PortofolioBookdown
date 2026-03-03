@@ -64,8 +64,8 @@ knitr::opts_chunk$set(
 
 ### Contact information {-}
 
-- [E-mail: thijmen.weijgertze@student.hu.nl](thijmen.weijgertze@student.hu.nl)
-- [GitHub: https://github.com/ThijmenWeijgertze](https://github.com/ThijmenWeijgertze)
-- [LinkedIn: https://www.linkedin.com/in/thijmen-weijgertze-968a5a265/](https://www.linkedin.com/in/thijmen-weijgertze-968a5a265/)
-- [Bookdown Code: https://github.com/ThijmenWeijgertze/PortofolioBookdown](https://github.com/ThijmenWeijgertze/PortofolioBookdown)
-- [Website Source Code: https://github.com/ThijmenWeijgertze/ThijmenWeijgertze-portfolio](https://github.com/ThijmenWeijgertze/ThijmenWeijgertze-portfolio)
+- E-mail: thijmen.lifesciences@gmail.com
+- GitHub: [https://github.com/ThijmenWeijgertze](https://github.com/ThijmenWeijgertze)
+- LinkedIn: [https://www.linkedin.com/in/thijmen-weijgertze-968a5a265/](https://www.linkedin.com/in/thijmen-weijgertze-968a5a265/)
+- Bookdown Code: [https://github.com/ThijmenWeijgertze/PortofolioBookdown](https://github.com/ThijmenWeijgertze/PortofolioBookdown)
+- Website Source Code: [https://github.com/ThijmenWeijgertze/ThijmenWeijgertze-portfolio](https://github.com/ThijmenWeijgertze/ThijmenWeijgertze-portfolio)
